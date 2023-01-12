@@ -13,10 +13,22 @@
         </div>
         <h3 class="mb-4">Login</h3>
         <div class="input-group mb-3">
-          <input type="email" class="form-control" placeholder="Email" />
+            <input #login type="text" class="form-control" placeholder="Login" />
+        </div>
+        <div *ngIf="loginError" class="alert alert-danger alert-dismissible fade show" role="alert">
+            Veuillez entrer votre login de passe!
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
         </div>
         <div class="input-group mb-4">
-          <input type="password" class="form-control" placeholder="Password" />
+            <input #mdp type="password" class="form-control" placeholder="Password" />
+        </div>
+        <div *ngIf="mdpError" class="alert alert-danger alert-dismissible fade show" role="alert">
+            Veuillez entrer votre mot de passe!
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
         </div>
         <div class="form-group text-start mb-4">
           <div class="checkbox checkbox-fill d-inline">
@@ -29,7 +41,7 @@
             <label for="checkbox-fill-a1" class="cr"> Save Details</label>
           </div>
         </div>
-        <button class="btn btn-primary mb-4" [routerLink]="['/dashboard']" >Login</button>
+        <button class="btn btn-primary mb-4"(click)="checkInput(login.value,mdp.value)" >Login</button>
         <p class="mb-2 text-muted">
           Forgot password? <a [routerLink]="['/auth/reset-password']">Reset</a>
         </p>
