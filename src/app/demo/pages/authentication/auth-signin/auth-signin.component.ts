@@ -32,12 +32,12 @@ export default class AuthSigninComponent implements OnInit{
         })
     }
 
-    loginProcess(){
+    async loginProcess(){
         if(this.loginGroup.valid){
-            this.authService.login(this.loginGroup.value)
+            await this.authService.login(this.loginGroup.value)
             .subscribe(
                 response => {
-                    this.loginError = true;
+                    this.loginError = false;
                     localStorage.setItem('user', JSON.stringify(response));
                     this.router.navigate(['/dashboard']);
                 },
