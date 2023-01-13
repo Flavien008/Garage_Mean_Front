@@ -2,7 +2,7 @@ import { AppModule } from './../../../../app.module';
 import { AuthService } from './../../../../_services/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 
 @Component({
@@ -12,9 +12,14 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
     templateUrl: './auth-signin.component.html',
     styleUrls: ['./auth-signin.component.scss'],
 })
+
 export default class AuthSigninComponent implements OnInit{
     loginGroup : FormGroup;
-    constructor(private authService : AuthService){}
+    defaultLog : string = "Flavien";
+    defaultPwd : string = "1234";
+    loginError : boolean = false
+
+    constructor(private authService : AuthService,private router: Router){}
 
     ngOnInit(): void {
         this.initForm();
@@ -29,19 +34,21 @@ export default class AuthSigninComponent implements OnInit{
 
     loginProcess(){
         if(this.loginGroup.valid){
-            this.authService.login(this.loginGroup.value).subscribe(result=>{
-                console.log('ato');
-                
-                if(result.error){
-                    console.log('diso'+result);
-                    
-                    alert('Verifiez vos info');
-                }else {
-                    console.log('marina'+result);
-
-                    alert('ok');
+            this.authService.login(this.loginGroup.value)
+            .subscribe(
+                response => {
+                    this.loginError = true;
+                    localStorage.setItem('user', JSON.stringify(response));
+                    this.router.navigate(['/dashboard']);
+                },
+                error => {
+                    if(error.status == 401) {
+                        this.loginError = true;
+                        console.log('Vérifier vos informations ! ');
+                    }
                 }
-            })
+            );
+                
         }
     }
 }
