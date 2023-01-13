@@ -49,14 +49,14 @@ export class NavContentComponent implements OnInit {
   ngOnInit() {
     if (this.windowWidth < 992) {
       this.config['layout'] = 'vertical';
-      setTimeout(() => {
-        document
-          .querySelector('.pcoded-navbar')
-          .classList.add('menupos-static');
-        (
-          document.querySelector('#nav-ps-datta') as HTMLElement
-        ).style.maxHeight = '100%';
-      }, 500);
+      // setTimeout(() => {
+      //   document
+      //     .querySelector('.pcoded-navbar')
+      //     .classList.add('menupos-static');
+      //   (
+      //     document.querySelector('#nav-ps-datta') as HTMLElement
+      //   ).style.maxHeight = '100%';
+      // }, 500);
     }
   }
 
