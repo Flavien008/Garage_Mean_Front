@@ -32,6 +32,7 @@
     "ngx-scrollbar": "^10.0.1",
     "raphael": "^2.3.0",
     "rxjs": "~7.5.7",
+    "rxjs-observable": "^0.0.7",
     "screenfull": "^6.0.1",
     "tslib": "^2.4.1",
     "zone.js": "~0.12.0"
