@@ -11,6 +11,9 @@ import { NavigationItem } from '../navigation';
 import { DattaConfig } from 'src/app/app-config';
 import { Location } from '@angular/common';
 import { environment } from 'src/environments/environment';
+import { ClientMenu } from '../listeMenu/clientMenu';
+import { FinanceMenu } from '../listeMenu/financeMenu';
+import { AtelierMenu } from '../listeMenu/atelierMenu';
 
 @Component({
   selector: 'app-nav-content',
@@ -21,6 +24,13 @@ export class NavContentComponent implements OnInit {
   // version
   title = 'Demo application for version numbering';
   currentApplicationVersion = environment.appVersion;
+  clientMenu : any ;
+  atelierMenu : any;
+  financeMenu : any;
+
+  estClient : boolean = false;
+  estAtelier : boolean = false;
+  estFinance : boolean = false;
 
   @Output() onNavCollapsedMob = new EventEmitter();
 
@@ -39,6 +49,16 @@ export class NavContentComponent implements OnInit {
     private zone: NgZone,
     private location: Location
   ) {
+    this.clientMenu = ClientMenu;
+    this.atelierMenu = AtelierMenu;
+    this.financeMenu = FinanceMenu;
+    console.log('mijery menu');
+    if(localStorage.getItem('user')!=null){
+        var role = JSON.parse(localStorage.getItem('user')).role;
+        if(role === 'client') this.estClient = true;
+        if(role === 'atelier') this.estAtelier = true;
+        if(role === 'finance') this.estFinance = true;
+    }
     this.config = DattaConfig;
     this.windowWidth = window.innerWidth;
     this.navigation = this.nav.get();
@@ -57,8 +77,12 @@ export class NavContentComponent implements OnInit {
       //     document.querySelector('#nav-ps-datta') as HTMLElement
       //   ).style.maxHeight = '100%';
       // }, 500);
+      
+      
     }
   }
+
+
 
   navMob() {
     if (

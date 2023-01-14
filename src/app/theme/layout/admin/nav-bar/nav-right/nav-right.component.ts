@@ -45,8 +45,6 @@ export class NavRightComponent implements OnInit {
     }
 
     logout() {
-        console.log('decooo');
-        
         localStorage.removeItem('user');
         this.router.navigate(['/auth/signin']);
     }
