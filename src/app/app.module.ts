@@ -51,7 +51,7 @@ import { HttpClientModule } from '@angular/common/http';
     HttpClientModule,
     FormsModule
     ],
-  providers: [NavigationItem,NavigationComponent],
+  providers: [NavigationItem],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
