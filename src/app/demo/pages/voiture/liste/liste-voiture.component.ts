@@ -10,7 +10,7 @@ import { environment } from 'src/environments/environment';
 @Component({
   selector: 'app-basic-elements',
   standalone: true,
-  imports: [CommonModule, SharedModule, NgbDropdownModule, ColorPickerModule],
+  imports: [SharedModule],
   templateUrl: './liste-voiture.component.html',
   styleUrls: ['./liste-voiture.component.scss'],
 })
