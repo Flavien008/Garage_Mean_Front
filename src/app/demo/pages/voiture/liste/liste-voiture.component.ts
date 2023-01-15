@@ -15,6 +15,7 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./liste-voiture.component.scss'],
 })
 export default class BasicElementsComponent implements OnInit{
+    user : any ;
     voitures : any ;
 
     constructor(private http: HttpClient) {}
@@ -35,8 +36,21 @@ export default class BasicElementsComponent implements OnInit{
         'Authorization': 'Bearer ' + token
     });
     this.http.get(`${environment.baseUrl}/utilisateur/${id}`, {headers}).subscribe(data => {
-        this.voitures = data;
+        this.user = data;
+        this.voitures = this.user.voiture;
     });
     }
+
+    search(searchTerm: string) {  
+        console.log(this.voitures);
+        if(searchTerm.length==0) this.voitures = this.user.voiture;
+        else
+        {
+            this.voitures = this.voitures.filter(item =>
+            item.modele.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            item.matriculation.toLowerCase().includes(searchTerm.toLowerCase())
+            );
+        }
+      }
       
 }

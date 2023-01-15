@@ -1,15 +1,30 @@
 <div class="row" *ngIf="voitures != null">
-		<div class="{{ voiture.design }} col-xl-4" *ngFor="let voiture of voitures.voiture">
+	<div class="col-sm-12">
+		<div class="card">
+			<div class="card-block">
+				<div class="row justify-content-center">
+					<div class="col-sm-6">
+						<input type="text" #indice id="icon-search" class="form-control mb-4" placeholder="search . . " (keyup)="search(indice.value)">
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+		<div class="{{ voiture.design }} col-xl-4" *ngFor="let voiture of voitures">
 			<app-card [hidHeader]="true">
 				<img class="mb-4" src="https://drive.google.com/file/d/1HxFf6D6duJ8TfxthYL5BQagUvQw4kJRy/view?usp=share_link" />
 				<div class="row d-flex align-items-center">
 					<div class="col-9">
 					<h3 class="f-w-300 d-flex align-items-center m-b-0">
-						{{ voiture.matriculation }}
+						{{ voiture.matriculation + " " +voiture.modele }}
 					</h3>
 					</div>
 					<div class="col-3 text-end">
-					<p class="m-b-0">{{ voiture.modele }}</p>
+						<p class="m-b-0"> <button type="button" class="btn btn-primary">
+							Voir
+						  </button></p>
 					</div>
 				</div>
 			</app-card>
