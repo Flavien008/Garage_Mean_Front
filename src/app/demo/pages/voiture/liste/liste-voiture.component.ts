@@ -5,6 +5,7 @@ import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { ColorPickerModule } from 'ngx-color-picker';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -18,7 +19,7 @@ export default class BasicElementsComponent implements OnInit{
     user : any ;
     voitures : any ;
 
-    constructor(private http: HttpClient) {}
+    constructor(private http: HttpClient,private router: Router) {}
 
     ngOnInit(): void {
         var token : string;
@@ -51,6 +52,12 @@ export default class BasicElementsComponent implements OnInit{
             item.matriculation.toLowerCase().includes(searchTerm.toLowerCase())
             );
         }
+      }
+
+      navigateToPage(id: string) {
+        console.log(id);
+        
+        this.router.navigate(['/voiture/fiche',id]);
       }
       
 }

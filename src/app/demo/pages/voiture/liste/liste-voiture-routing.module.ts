@@ -12,6 +12,16 @@ const routes: Routes = [
       },
     ],
   },
+  {
+    path: '',
+    children: [
+      {
+        path: 'fiche/:id',
+        loadComponent: () =>
+          import('../fiche/fiche-voiture.component'),
+      },
+    ],
+  },
 ];
 
 @NgModule({
