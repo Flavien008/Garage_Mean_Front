@@ -11,8 +11,8 @@ import { environment } from 'src/environments/environment';
   selector: 'app-basic-elements',
   standalone: true,
   imports: [CommonModule, SharedModule, NgbDropdownModule, ColorPickerModule],
-  templateUrl: './basic-elements.component.html',
-  styleUrls: ['./basic-elements.component.scss'],
+  templateUrl: './liste-voiture.component.html',
+  styleUrls: ['./liste-voiture.component.scss'],
 })
 export default class BasicElementsComponent implements OnInit{
     voitures : any ;

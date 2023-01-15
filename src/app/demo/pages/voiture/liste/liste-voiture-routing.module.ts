@@ -8,7 +8,7 @@ const routes: Routes = [
       {
         path: 'list',
         loadComponent: () =>
-          import('./basic-elements/basic-elements.component'),
+          import('./liste-voiture.component'),
       },
     ],
   },
