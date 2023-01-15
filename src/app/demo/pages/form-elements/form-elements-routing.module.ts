@@ -6,7 +6,7 @@ const routes: Routes = [
     path: '',
     children: [
       {
-        path: 'basic',
+        path: 'list',
         loadComponent: () =>
           import('./basic-elements/basic-elements.component'),
       },

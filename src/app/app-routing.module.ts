@@ -27,7 +27,7 @@ const routes: Routes = [
           ),
       },
       {
-        path: 'forms',
+        path: 'voiture',
         loadChildren: () =>
           import('./demo/pages/form-elements/form-elements.module').then(
             (m) => m.FormElementsModule
