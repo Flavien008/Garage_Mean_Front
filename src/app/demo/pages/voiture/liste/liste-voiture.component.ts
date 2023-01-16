@@ -7,11 +7,6 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Router } from '@angular/router';
 
-
-
-
-
-
 @Component({
   selector: 'app-basic-elements',
   standalone: true,
@@ -60,8 +55,7 @@ export default class BasicElementsComponent implements OnInit{
       }
 
       navigateToPage(id: string) {
-        console.log(id);
-        
+        // console.log(id);
         this.router.navigate(['/voiture/fiche',id]);
       }
       

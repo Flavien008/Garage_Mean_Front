@@ -17,8 +17,7 @@
             <table class="table table-hover">
               <thead>
                 <tr>
-                    <th>#</th>
-                    <th>Description</th>
+                    <th>Designation</th>
                     <th>Début</th>
                     <th>Fin</th>
                     <th>Etat</th>
@@ -26,28 +25,16 @@
                 </tr>
               </thead>
               <tbody>
-                <tr (click)="openDetails()">
-                    <th scope="row">1</th>
-                    <td>Révision de moteur</td>
-                    <td>05 mai 2022</td>
-                    <td>10 mai 2022</td>
-                    <td>Terminer</td>
-                </tr>
-                <tr (click)="openDetails()">
-                    <th scope="row">1</th>
-                    <td>Révision de moteur</td>
-                    <td>05 mai 2022</td>
-                    <td>10 mai 2022</td>
-                    <td>Terminer</td>
-                </tr>
-                <tr (click)="openDetails()">
-                    <th scope="row">1</th>
-                    <td>Révision de moteur</td>
-                    <td>05 mai 2022</td>
-                    <td>10 mai 2022</td>
-                    <td>Terminer</td>
+                <tr (click)="openDetails()" *ngFor="let rep of reparations | paginate: { itemsPerPage: 5, currentPage: p }">
+                    <td>{{ rep.designation }}</td>
+                    <td>{{ rep.datedebut }}</td>
+                    <td>{{ rep.datefin }}</td>
+                    <td>{{ rep.etat }}</td>
+                    <td>{{ rep.idfacture }}</td>
                 </tr>
               </tbody>
+              <pagination-controls (pageChange)="p = $event"></pagination-controls>
+
             </table>
           </div>
     </app-card>
