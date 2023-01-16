@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NgxDropzoneModule } from 'ngx-dropzone';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -39,7 +40,8 @@ import { HttpClientModule } from '@angular/common/http';
         NavGroupComponent,
         NavItemComponent,
         NavSearchComponent,
-        ToggleFullScreenDirective
+        ToggleFullScreenDirective,
+
     ],
   imports: [
     BrowserModule,
@@ -49,7 +51,8 @@ import { HttpClientModule } from '@angular/common/http';
     SharedModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    FormsModule
+    FormsModule, 
+    NgxDropzoneModule
     ],
   providers: [NavigationItem],
   bootstrap: [AppComponent],

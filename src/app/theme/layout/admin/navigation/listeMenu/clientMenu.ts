@@ -15,7 +15,7 @@ export const ClientMenu = [
               id: 'button',
               title: 'Ajouter',
               type: 'item',
-              url: '/basic/badges',
+              url: '/voiture/ajout',
             },
             {
               id: 'badges',

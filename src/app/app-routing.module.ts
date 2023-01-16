@@ -20,10 +20,10 @@ const routes: Routes = [
         canActivate: [AuthGuard],
       },
       {
-        path: 'basic',
+        path: 'voiture',
         loadChildren: () =>
-          import('./demo/ui-elements/ui-basic/ui-basic.module').then(
-            (m) => m.UiBasicModule
+          import('./demo/pages/voiture/voiture.modules').then(
+            (m) => m.VoitureModule
           ),
       },
       {
