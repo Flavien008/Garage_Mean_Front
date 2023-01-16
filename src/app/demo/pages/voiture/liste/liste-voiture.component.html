@@ -14,11 +14,14 @@
 
 		<div class="{{ voiture.design }} col-xl-4" *ngFor="let voiture of voitures">
 			<app-card [hidHeader]="true">
-				<img [ngStyle]="{'src': voiture.image}">
+				<div class="col-9">
+				<img [src]="voiture.image" width="80%" height="80%">
+			</div>
 				<div class="row d-flex align-items-center">
 					<div class="col-9">
 					<h3 class="f-w-300 d-flex align-items-center m-b-0">
 						{{ voiture.matriculation + " " +voiture.modele}}
+						
 					</h3>
 					</div>
 					<div class="col-3 text-end">

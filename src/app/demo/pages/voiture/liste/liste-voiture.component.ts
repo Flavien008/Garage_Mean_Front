@@ -35,7 +35,6 @@ export default class BasicElementsComponent implements OnInit{
 
         }
         this.fetchData(iduser,token);
-        console.log(this.voitures)
     }
     
     fetchData(id:string,token: string) {
