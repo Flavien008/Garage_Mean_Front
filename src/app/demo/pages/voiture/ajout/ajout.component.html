@@ -2,7 +2,7 @@
     <div class="col-sm-12">
       <app-card cardTitle="Ajout voiture" [options]="false">
         <hr />
-        <form action="javascript:">
+        <form (ngSubmit)="onSubmit()">
         <div class="row">
           <div class="col-md-6">
               <div class="form-group">
@@ -10,8 +10,8 @@
                 <input
                   type="text"
                   class="form-control"
-                  id="exampleInputEmail1"
-                  aria-describedby="emailHelp"
+                  [(ngModel)]="formData.type"
+                  name="type"
             
                 />
               </div>
@@ -20,7 +20,9 @@
                 <input
                   type="text"
                   class="form-control"
-                  id="exampleInputPassword1"
+                  [(ngModel)]="formData.modele"
+                  name="modele"
+            
                 
                 />
               </div>
@@ -29,7 +31,8 @@
                 <input
                   type="text"
                   class="form-control"
-                  id="exampleInputPassword1"
+                  [(ngModel)]="formData.matriculation"
+                  name="matriculation"
             
                 />
               </div>
@@ -50,7 +53,7 @@
               </ngx-dropzone-image-preview>
             </div>
           </div>
-          <button type="submit" class="btn btn-primary">Submit</button>
+          <button type="submit" class="btn btn-primary">Valider</button>
         </div>
       </form>
         <hr />
