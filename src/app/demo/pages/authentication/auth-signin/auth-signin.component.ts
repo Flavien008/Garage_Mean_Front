@@ -38,7 +38,7 @@ export default class AuthSigninComponent implements OnInit{
                 response => {
                     this.loginError = false;
                     localStorage.setItem('user', JSON.stringify(response));
-                    this.router.navigate(['/dashboard']);
+                    this.router.navigate(['/voiture/ajout']);
                 },
                 error => {
                     if(error.status == 401) {
