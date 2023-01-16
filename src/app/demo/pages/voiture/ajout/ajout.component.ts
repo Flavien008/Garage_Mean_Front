@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component ,  Renderer2 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SharedModule } from 'src/app/theme/shared/shared.module';
 import { NgxDropzoneModule } from 'ngx-dropzone';
@@ -14,8 +14,12 @@ import { environment } from 'src/environments/environment';
 
 })
 export default class AjoutComponent {
-  constructor(private http: HttpClient) {}
+  
+  constructor(private http: HttpClient ) {}
   files: File[] = [];
+
+  loading = false;
+  error = false;
 
   base64textString: string="";
 
@@ -61,6 +65,7 @@ export default class AjoutComponent {
   onSubmit() {
     var token : string;
     var iduser : string;
+    this.loading = true;
     if(localStorage.getItem('user')!=null){
         token = JSON.parse(localStorage.getItem('user')).token;
         iduser = JSON.parse(localStorage.getItem('user')).userId;
@@ -70,9 +75,20 @@ export default class AjoutComponent {
     let headers = new HttpHeaders({
       'Authorization': 'Bearer ' + token
     });
-    this.http.post(`${environment.baseUrl}/voitures`, this.formData, { headers: headers }) 
+
+    if(this.formData.img!=''&&this.formData.type!=''&&this.formData.modele!=''&&this.formData.matriculation!=''){
+      this.error=false;
+      this.http.post(`${environment.baseUrl}/voitures`, this.formData, { headers: headers }) 
       .subscribe(response => {
         console.log(response);
+        this.loading = false;
+        location.reload();
       });
+    }
+    else{
+      this.error=true;
+      this.loading = false;
+    }
+   
   }
 }

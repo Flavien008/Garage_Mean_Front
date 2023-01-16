@@ -8,12 +8,17 @@ import { environment } from 'src/environments/environment';
 import { Router } from '@angular/router';
 
 
+
+
+
+
 @Component({
   selector: 'app-basic-elements',
   standalone: true,
   imports: [SharedModule],
   templateUrl: './liste-voiture.component.html',
   styleUrls: ['./liste-voiture.component.scss'],
+  
 })
 export default class BasicElementsComponent implements OnInit{
     user : any ;
@@ -30,6 +35,7 @@ export default class BasicElementsComponent implements OnInit{
 
         }
         this.fetchData(iduser,token);
+        console.log(this.voitures)
     }
     
     fetchData(id:string,token: string) {
