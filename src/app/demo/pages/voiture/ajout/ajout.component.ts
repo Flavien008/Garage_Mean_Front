@@ -4,6 +4,7 @@ import { SharedModule } from 'src/app/theme/shared/shared.module';
 import { NgxDropzoneModule } from 'ngx-dropzone';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-ajout',
   standalone: true,
@@ -15,7 +16,7 @@ import { environment } from 'src/environments/environment';
 })
 export default class AjoutComponent {
   
-  constructor(private http: HttpClient ) {}
+  constructor(private http: HttpClient,private router: Router ) {}
   files: File[] = [];
 
   loading = false;
@@ -82,7 +83,7 @@ export default class AjoutComponent {
       .subscribe(response => {
         console.log(response);
         this.loading = false;
-        location.reload();
+        this.router.navigate(['/voiture/list']);
       });
     }
     else{

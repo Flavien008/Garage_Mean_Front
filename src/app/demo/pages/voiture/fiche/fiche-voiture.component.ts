@@ -8,6 +8,7 @@ import { DetailsModalCompoment } from './pop-up/DetailsPopupCompoment';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { DataService } from 'src/app/_services/data.service';
 
 
 @Component({
@@ -23,7 +24,7 @@ export default class FicheVoitureCompoment implements OnInit{
     p : any ;
     token : string;
 
-    constructor (private route: ActivatedRoute,private modalService: NgbModal,private http: HttpClient){}
+    constructor (private route: ActivatedRoute,private modalService: NgbModal,private dataService: DataService){}
     ngOnInit(): void {
         this.idVoiture = this.route.snapshot.params['id'];
         
@@ -37,10 +38,10 @@ export default class FicheVoitureCompoment implements OnInit{
       const headers = new HttpHeaders({
           'Authorization': 'Bearer ' + token
     });
-    this.http.get(`${environment.baseUrl}/reparation/${idVoiture}`, {headers}).subscribe(data => {
-    console.log(data);
-        this.reparations = data;
-    });
+    this.dataService.getData(`${environment.baseUrl}/reparation/${idVoiture}`,{headers}).subscribe(data => {
+        console.log(data);
+            this.reparations = data;
+        });
     }
 
     openModal(data:string) {
