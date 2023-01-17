@@ -47,38 +47,38 @@ export class FormModalComponent implements OnInit {
     }
 
     submitForm(date:string,designation:any) {
-        // console.log(date + designation);
-        var data = {
-            "tablename":"reparation",
-            "idvoiture": this.id_voiture,
-            "designation": designation,
-            "date_depot": date
-        }
-        // this.obj_serv.sendPostRequest(data,'object');
-        console.log(data);
-        // this.activeModal.close();
-        var token : string;
-        if(localStorage.getItem('user')!=null){
-          token = JSON.parse(localStorage.getItem('user')).token;
-      console.log(data)
-      let headers = new HttpHeaders({
-        'Authorization': 'Bearer ' + token
-      });
-  
-      if(data.designation!=''&&data.date_depot!=''){
-        this.error=false;
-        this.dataService.addData(`${environment.baseUrl}/object`,data, {headers: headers })
-        .subscribe(response => {
-          console.log(response);
-          this.loading = false;
-          this.router.navigate(['/voiture/fiche/'+this.id_voiture]);
+            // console.log(date + designation);
+            var data = {
+                "tablename":"reparation",
+                "idvoiture": this.id_voiture,
+                "designation": designation,
+                "date_depot": date
+            }
+            // this.obj_serv.sendPostRequest(data,'object');
+            console.log(data);
+            var token : string;
+            if(localStorage.getItem('user')!=null){
+            token = JSON.parse(localStorage.getItem('user')).token;
+        console.log(data)
+        let headers = new HttpHeaders({
+            'Authorization': 'Bearer ' + token
         });
-        console.log("ato");
-      }
-      else{
-        this.error=true;
-        this.loading = false;
-      }
+    
+        if(data.designation!=''&&data.date_depot!=''){
+            this.error=false;
+            this.dataService.addData(`${environment.baseUrl}/object`,data, {headers: headers })
+            .subscribe(response => {
+            console.log(response);
+            this.loading = false;
+            this.router.navigate(['/voiture/fiche/'+this.id_voiture]);
+            });
+            console.log("ato");
+            }
+            else{
+                this.error=true;
+                this.loading = false;
+            }
+        }
+            this.activeModal.close();
     }
-}
 }
