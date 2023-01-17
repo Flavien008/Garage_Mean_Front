@@ -8,8 +8,10 @@
         <div class="container">
             <div class="box" [ngStyle]="{'display': 'flex', 'justify-content': 'space-between'}">
             <div class="box-part"><h5>Historique de réparation</h5></div>
-            <div class="box-part"></div> 
-            <div class="box-part"><button class="btn btn-primary" (click)="openModal()">Nouvelle réparation</button></div>
+            <div class="box-part">
+						  <input type="text" #indice id="icon-search" class="form-control mb-4" placeholder="search . . ">
+            </div> 
+            <div class="box-part"><button class="btn btn-primary" (click)="openModal(idVoiture)">Nouvelle réparation</button></div>
             </div>
         </div>
 

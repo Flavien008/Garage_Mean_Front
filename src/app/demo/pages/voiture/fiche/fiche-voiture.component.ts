@@ -21,29 +21,31 @@ export default class FicheVoitureCompoment implements OnInit{
     idVoiture : string ; 
     reparations : any ;
     p : any ;
+    token : string;
 
     constructor (private route: ActivatedRoute,private modalService: NgbModal,private http: HttpClient){}
     ngOnInit(): void {
         this.idVoiture = this.route.snapshot.params['id'];
-        var token : string;
+        
         if(localStorage.getItem('user')!=null){
-            token = JSON.parse(localStorage.getItem('user')).token;
+            this.token = JSON.parse(localStorage.getItem('user')).token;
         }
-        this.fetchData(this.idVoiture,token);
+        this.fetchData(this.idVoiture,this.token);
     }
 
     fetchData(idVoiture:string,token: string) {
       const headers = new HttpHeaders({
           'Authorization': 'Bearer ' + token
-      });
-      this.http.get(`${environment.baseUrl}/reparation/${idVoiture}`, {headers}).subscribe(data => {
-        console.log(data);
-          this.reparations = data;
-      });
-      }
+    });
+    this.http.get(`${environment.baseUrl}/reparation/${idVoiture}`, {headers}).subscribe(data => {
+    console.log(data);
+        this.reparations = data;
+    });
+    }
 
-    openModal() {
-      this.modalService.open(FormModalComponent);
+    openModal(data:string) {
+        const modalRef = this.modalService.open(FormModalComponent);
+        modalRef.componentInstance.id_voiture = data;
     }
 
     openDetails() {

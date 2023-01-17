@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { ObjectService } from './../../../../../_services/objectService';
+import { HttpHeaders } from '@angular/common/http';
+import { Component, Input, OnInit } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
@@ -11,32 +13,42 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
       </button>
     </div>
     <div class="modal-body">
-      <form>
-        <div class="form-group">
-          <label for="name">Designation</label>
-          <br>
-          <br>
-
-          <input type="text" class="form-control" id="name" #name name="name">
-        </div>
-      </form>
+        <form>
+            <div class="form-group">
+                <label for="name">Date depot</label>
+                <br>
+                    <input type="date" class="form-control" id="name" #date>
+            </div>
+                <div class="form-group">
+                <label for="name">Designation</label>
+                <br>
+                    <input type="text" class="form-control" id="designation" #designation>
+            </div>
+        </form>
     </div>
     <div class="modal-footer">
-      <button type="button" class="btn btn-outline-dark" (click)="submitForm(name.value)">Valider</button>
+      <button type="button" class="btn btn-outline-dark" (click)="submitForm(date.value,designation.value)">Valider</button>
     </div>
   `
 })
+
 export class FormModalComponent implements OnInit {
-  name: string;
-  email: string;
+    @Input() id_voiture: any;
 
-  constructor(public activeModal: NgbActiveModal) { }
+    constructor(public activeModal: NgbActiveModal,private obj_serv : ObjectService) { }
 
-  ngOnInit() {
-  }
+    ngOnInit() {
+    }
 
-  submitForm(name) {
-    console.log(name);
-    this.activeModal.close();
-  }
+    submitForm(date:string,designation:any) {
+        // console.log(date + designation);
+        var data = {
+            "tablename":"reparation",
+            "idvoiture": this.id_voiture,
+            "designation": designation,
+            "date_depot": date
+        }
+        this.obj_serv.sendPostRequest(data,'object');
+        // this.activeModal.close();
+    }
 }
