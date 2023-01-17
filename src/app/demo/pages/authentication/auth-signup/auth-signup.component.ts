@@ -16,6 +16,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 export default class AuthSignupComponent {
   loading = false;
   form: FormGroup;
+  error = false;
 
   constructor(private http: HttpClient,private router: Router) {}
 
@@ -42,15 +43,15 @@ export default class AuthSignupComponent {
     let headers = new HttpHeaders({
       'Authorization': 'Bearer ' + token
     });
-    if(this.form.valid){
+    if(this.form.value.nom!=''&&this.form.value.login!=''&&this.form.value.password!=''){
+      this.error=false;
       this.http.post(`${environment.baseUrl}/signup`, this.form.value, { headers: headers }) 
       .subscribe(response => {
         console.log(response);
         this.loading = false;
         this.router.navigate(['/auth/signin']);
-      });
-
-    }else console.log("misy tsy mety");
+      })
+    }else this.error=true;
     
   }
 }

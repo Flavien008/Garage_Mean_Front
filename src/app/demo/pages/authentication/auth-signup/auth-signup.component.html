@@ -28,6 +28,9 @@
         <div  class="input-group mb-4">
           <input class="form-control" formControlName="email" type="email" placeholder="Email">
         </div>
+        <div *ngIf="error" class="alert alert-danger alert-dismissible fade show" role="alert">
+          Veuillez remplir chaque formulaire !
+        </div>
         <button type="submit" class="btn btn-primary shadow-2 mb-4">Sign up</button>
        </form>
         <p class="mb-0 text-muted">
