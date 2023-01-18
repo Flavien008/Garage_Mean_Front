@@ -20,6 +20,7 @@
               <thead>
                 <tr>
                     <th>Designation</th>
+                    <th>Depot</th>
                     <th>Début</th>
                     <th>Fin</th>
                     <th>Etat</th>
@@ -29,6 +30,7 @@
               <tbody>
                 <tr (click)="openDetails()" *ngFor="let rep of reparations | paginate: { itemsPerPage: 5, currentPage: p }">
                     <td>{{ rep.designation }}</td>
+                    <td>{{ rep.date_depot }}</td>
                     <td>{{ rep.datedebut }}</td>
                     <td>{{ rep.datefin }}</td>
                     <td>{{ rep.etat }}</td>
