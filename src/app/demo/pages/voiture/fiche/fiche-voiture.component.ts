@@ -49,7 +49,8 @@ export default class FicheVoitureCompoment implements OnInit{
         modalRef.componentInstance.id_voiture = data;
     }
 
-    openDetails() {
-        this.modalService.open(DetailsModalCompoment);
+    openDetails(data:string) {
+        const detailRef = this.modalService.open(DetailsModalCompoment);
+        detailRef.componentInstance.id_reparation = data;
       }
 }

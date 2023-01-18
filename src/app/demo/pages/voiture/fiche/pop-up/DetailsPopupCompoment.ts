@@ -1,8 +1,10 @@
 import { style } from '@angular/animations';
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Component, Input, OnInit } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { SharedModule } from 'src/app/theme/shared/shared.module';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-details-modal',
@@ -30,17 +32,12 @@ import { SharedModule } from 'src/app/theme/shared/shared.module';
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>Graissage</td>
-                            <td>1 000 Ar</td>
-                            <td> 30 % <ngb-progressbar type="text-primary" height="7px" [value]="100"></ngb-progressbar></td>
+                        <tr ngFor="let listedetails of listedetails">
+                            <td>{{ listedetails.designation }}</td>
+                            <td>{{ listedetails.prix }}</td>
+                            <td> 0 % <ngb-progressbar type="text-primary" height="7px" [value]="0"></ngb-progressbar></td>
                         </tr>
-                        <tr>
-                            <td>Graissage</td>
-                            <td>1 000 Ar</td>
-                            <td> 30 % <ngb-progressbar type="text-primary" height="7px" [value]="100"></ngb-progressbar></td>
-                        </tr>
-                        
+            
                     </tbody>
                     </table>
                 </div>
@@ -52,16 +49,37 @@ import { SharedModule } from 'src/app/theme/shared/shared.module';
   `
 })
 export class DetailsModalCompoment implements OnInit {
-  name: string;
-  email: string;
+  listedetails : any;
+  reparation : any;
+ 
+  @Input() id_reparation: any;
+ 
 
-  constructor(public activeModal: NgbActiveModal) { }
+
+  constructor(public activeModal: NgbActiveModal,private http: HttpClient) { }
+ 
 
   ngOnInit() {
+    var token : string;
+    console.log(this.id_reparation);
+    if(localStorage.getItem('user')!=null){
+      token = JSON.parse(localStorage.getItem('user')).token;
+  }
+  this.fetchData(token);
+}
+
+fetchData(token: string) {
+const headers = new HttpHeaders({
+  'Authorization': 'Bearer ' + token
+});
+this.http.get(`${environment.baseUrl}/reparationbyid/${this.id_reparation}`, {headers}).subscribe(data => {
+  this.reparation = data;
+  this.listedetails = this.reparation.details;
+  console.log(this.listedetails);
+});
+}
+
   }
 
-  submitForm(name) {
-    console.log(name);
-    this.activeModal.close();
-  }
-}
+
+

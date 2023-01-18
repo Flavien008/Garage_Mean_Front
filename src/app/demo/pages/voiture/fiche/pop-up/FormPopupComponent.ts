@@ -41,7 +41,7 @@ export class FormModalComponent implements OnInit {
     error = false;
 
 
-    constructor(public activeModal: NgbActiveModal,private obj_serv : ObjectService,private http: HttpClient,private router: Router,private dataService: DataService) { }
+    constructor(public activeModal: NgbActiveModal,private dataService: DataService) { }
 
     ngOnInit() {
     }
