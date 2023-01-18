@@ -19,7 +19,7 @@ import { environment } from 'src/environments/environment';
         </button>
     </div>
     <div class="modal-body">
-    <div class="row">
+    <div class="row" *ngIf="listedetails != null">
         <div class="col-xl-12">
                   <div class="table-responsive">
                     <table class="table table-hover">
@@ -32,10 +32,10 @@ import { environment } from 'src/environments/environment';
                         </tr>
                     </thead>
                     <tbody>
-                        <tr ngFor="let listedetails of listedetails">
-                            <td>{{ listedetails.designation }}</td>
-                            <td>{{ listedetails.prix }}</td>
-                            <td> 0 % <ngb-progressbar type="text-primary" height="7px" [value]="0"></ngb-progressbar></td>
+                        <tr *ngFor="let liste of listedetails">
+                            <td>{{ liste.designation }}</td>
+                            <td>{{ liste.prix }}</td>
+                            <td> {{ liste.avancement }} % <ngb-progressbar type="text-primary" height="7px" [value]="liste.avancement"></ngb-progressbar></td>
                         </tr>
             
                     </tbody>

@@ -39,6 +39,7 @@ export default class BasicElementsComponent implements OnInit{
     this.http.get(`${environment.baseUrl}/utilisateur/${id}`, {headers}).subscribe(data => {
         this.user = data;
         this.voitures = this.user.voiture;
+        console.log(this.voitures)
     });
     }
 
