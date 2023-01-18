@@ -32,6 +32,8 @@ export default class FicheVoitureCompoment implements OnInit{
             this.token = JSON.parse(localStorage.getItem('user')).token;
         }
         this.fetchData(this.idVoiture,this.token);
+        this.reparations = this.dataService.data;
+        console.log(this.dataService.data);
     }
 
     fetchData(idVoiture:string,token: string) {
@@ -40,7 +42,8 @@ export default class FicheVoitureCompoment implements OnInit{
     });
     this.dataService.getData(`${environment.baseUrl}/reparation/${idVoiture}`,{headers}).subscribe(data => {
         console.log(data);
-            this.reparations = data;
+        this.dataService.data = data;
+        this.reparations = this.dataService.data;
         });
     }
 

@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class DataService {
+    data : any;
 
   constructor(private http: HttpClient) {}
 
