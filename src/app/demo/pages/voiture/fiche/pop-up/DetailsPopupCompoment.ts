@@ -45,6 +45,9 @@ import { environment } from 'src/environments/environment';
         </div>
 
     </div>
+    <div class="row" *ngIf="listedetails == null">
+        <b class="text-center">Aucun details à afficher.</b>
+    </div>
   
   `
 })

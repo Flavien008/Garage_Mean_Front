@@ -16,7 +16,7 @@ const routes: Routes = [
     path: '',
     children: [
       {
-        path: 'fiche/:id',
+        path: 'fiche',
         loadComponent: () =>
           import('../fiche/fiche-voiture.component'),
       },

@@ -1,17 +1,17 @@
 <div class="row">
   <div class="col-xl-12">
     <app-card
-      cardTitle="BMW 5528TBG"
+      cardTitle="Historique de reparation"
       [options]="false"
       blockClass="table-border-style"
     >
         <div class="container">
             <div class="box" [ngStyle]="{'display': 'flex', 'justify-content': 'space-between'}">
-            <div class="box-part"><h5>Historique de réparation</h5></div>
+            <div class="box-part"><h5>Voiture : {{voiture.matriculation +" "+voiture.modele }}</h5></div>
             <div class="box-part">
-						  <input type="text" #indice id="icon-search" class="form-control mb-4" placeholder="search . . ">
+						  <input type="text" #indice id="icon-search" class="form-control mb-4" placeholder="search . . " (keyup)="search(indice.value)">
             </div> 
-            <div class="box-part"><button class="btn btn-primary" (click)="openModal(idVoiture)">Nouvelle réparation</button></div>
+            <div class="box-part"><button class="btn btn-primary" (click)="openModal(voiture)">Nouvelle réparation</button></div>
             </div>
         </div>
 

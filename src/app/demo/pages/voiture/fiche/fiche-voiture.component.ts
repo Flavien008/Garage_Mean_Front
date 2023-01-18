@@ -9,6 +9,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { DataService } from 'src/app/_services/data.service';
+import { map, Observable } from 'rxjs';
 
 
 @Component({
@@ -19,19 +20,25 @@ import { DataService } from 'src/app/_services/data.service';
     imports: [CommonModule, SharedModule,NgxPaginationModule]
 })
 export default class FicheVoitureCompoment implements OnInit{
-    idVoiture : string ; 
+    state$: Observable<object>;
+    voiture : any ;
     reparations :any;
     p : any ;
     token : string;
+    cardTitle : any;
 
     constructor (private route: ActivatedRoute,private modalService: NgbModal,private dataService: DataService){}
     ngOnInit(): void {
-        this.idVoiture = this.route.snapshot.params['id'];
+        this.state$ = this.route.paramMap.pipe(map(() => window.history.state))
+        this.state$.subscribe(data => {
+            this.voiture = data;
+        });
+        
         
         if(localStorage.getItem('user')!=null){
             this.token = JSON.parse(localStorage.getItem('user')).token;
         }
-        this.fetchData(this.idVoiture,this.token);
+        this.fetchData(this.voiture._id,this.token);
         this.dataService.data$.subscribe(data => {
             this.reparations = data;
           });
@@ -44,13 +51,30 @@ export default class FicheVoitureCompoment implements OnInit{
     this.dataService.fetchData(`${environment.baseUrl}/reparation/${idVoiture}`,{headers});
     }
 
-    openModal(data:string) {
+    openModal(data:any) {
         const modalRef = this.modalService.open(FormModalComponent);
-        modalRef.componentInstance.id_voiture = data;
+        modalRef.componentInstance.voiture = data;
     }
 
     openDetails(data:string) {
         const detailRef = this.modalService.open(DetailsModalCompoment);
         detailRef.componentInstance.id_reparation = data;
+      }
+
+      search(searchTerm: string) {  
+        console.log(searchTerm);
+        
+        if(searchTerm.length==0) {
+            this.dataService.data$.subscribe(data => {
+                this.reparations = data;
+              });
+        }
+        else
+        {
+            this.reparations = this.reparations.filter(item =>
+            item.designation.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            item.etat.toLowerCase().includes(searchTerm.toLowerCase())
+            );
+        }
       }
 }

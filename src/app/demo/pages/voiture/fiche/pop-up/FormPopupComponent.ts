@@ -36,7 +36,7 @@ import { DataService } from 'src/app/_services/data.service';
 })
 
 export class FormModalComponent implements OnInit {
-    @Input() id_voiture: any;
+    @Input() voiture: any;
     loading = false;
     error = false;
 
@@ -49,11 +49,14 @@ export class FormModalComponent implements OnInit {
     submitForm(date:string,designation:any) {
             var data = {
                 "tablename":"reparation",
-                "idvoiture": this.id_voiture,
+                "idvoiture": this.voiture._id,
                 "designation": designation,
-                "date_depot": date
+                "date_depot": date,
+                "modele":this.voiture.modele,
+                "matriculation":this.voiture.matriculation,
+                "etat": "en attente"
             }
-            console.log(data);
+            console.log('tay'+data);
             var token : string;
             if(localStorage.getItem('user')!=null){
             token = JSON.parse(localStorage.getItem('user')).token;
@@ -66,7 +69,7 @@ export class FormModalComponent implements OnInit {
             this.error=false;
             this.dataService.addData(`${environment.baseUrl}/object`,data, {headers: headers })
             this.loading = false;
-            this.dataService.fetchData(`${environment.baseUrl}/reparation/${this.id_voiture}`,{headers})
+            this.dataService.fetchData(`${environment.baseUrl}/reparation/${this.voiture._id}`,{headers})
             }
             else{
                 this.error=true;

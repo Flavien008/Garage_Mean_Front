@@ -29,11 +29,26 @@
 					</div>
 					<div class="col-3 text-end">
 						<p class="m-b-0"> 
-							<button type="button" class="btn btn-primary" (click)="navigateToPage(voiture._id)">
+							<button type="button" class="btn btn-primary" [routerLink]="['/voiture/fiche']" [state]="voiture">
 								Voir
-						  	</button></p>
+						  	</button>
+						</p>
+
 					</div>
 				</div>
 			</app-card>
 		</div>
+</div>
+<div class="row" *ngIf="voitures == null">
+	<div class="col-sm-12">
+		<div class="card">
+			<div class="card-block">
+				<div class="row justify-content-center">
+					<div class="col-sm-12">
+						<b class="text-center">Vous n'avez pas encore ajouter de voitures.</b>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
