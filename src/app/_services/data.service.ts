@@ -1,20 +1,34 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, map, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DataService {
-    data : any;
+
+  private data = new BehaviorSubject<any>(ArrayBuffer);
+  data$: Observable<any> = this.data.asObservable();
 
   constructor(private http: HttpClient) {}
 
-  addData(dataUrl: any,data: any, header: any): Observable<any> {
-    return this.http.post<any>(dataUrl, data, header);
+  addData(dataUrl: any,newdata: any, header: any) {
+    this.http.post(dataUrl, newdata, header)
+      .subscribe(response => {
+        console.log(response);
+      },
+      error => {
+        console.log(error);
+      });
   }
 
-  getData(dataUrl: any,header: any): Observable<any> {
-    return this.http.get<any>(dataUrl, header);
+  fetchData(dataUrl: any,header: any) {
+    this.http.get(dataUrl, header)
+      .subscribe(data => {
+         this.data.next(data);
+      },
+      error => {
+        console.log(error);
+      });
   }
 }

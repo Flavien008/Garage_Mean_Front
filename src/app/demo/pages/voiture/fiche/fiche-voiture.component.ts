@@ -20,7 +20,7 @@ import { DataService } from 'src/app/_services/data.service';
 })
 export default class FicheVoitureCompoment implements OnInit{
     idVoiture : string ; 
-    reparations : any ;
+    reparations :any;
     p : any ;
     token : string;
 
@@ -32,19 +32,16 @@ export default class FicheVoitureCompoment implements OnInit{
             this.token = JSON.parse(localStorage.getItem('user')).token;
         }
         this.fetchData(this.idVoiture,this.token);
-        this.reparations = this.dataService.data;
-        console.log(this.dataService.data);
+        this.dataService.data$.subscribe(data => {
+            this.reparations = data;
+          });
     }
 
     fetchData(idVoiture:string,token: string) {
       const headers = new HttpHeaders({
           'Authorization': 'Bearer ' + token
     });
-    this.dataService.getData(`${environment.baseUrl}/reparation/${idVoiture}`,{headers}).subscribe(data => {
-        console.log(data);
-        this.dataService.data = data;
-        this.reparations = this.dataService.data;
-        });
+    this.dataService.fetchData(`${environment.baseUrl}/reparation/${idVoiture}`,{headers});
     }
 
     openModal(data:string) {

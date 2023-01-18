@@ -47,14 +47,12 @@ export class FormModalComponent implements OnInit {
     }
 
     submitForm(date:string,designation:any) {
-            // console.log(date + designation);
             var data = {
                 "tablename":"reparation",
                 "idvoiture": this.id_voiture,
                 "designation": designation,
                 "date_depot": date
             }
-            // this.obj_serv.sendPostRequest(data,'object');
             console.log(data);
             var token : string;
             if(localStorage.getItem('user')!=null){
@@ -67,12 +65,8 @@ export class FormModalComponent implements OnInit {
         if(data.designation!=''&&data.date_depot!=''){
             this.error=false;
             this.dataService.addData(`${environment.baseUrl}/object`,data, {headers: headers })
-            .subscribe(response => {
-            console.log(response);
             this.loading = false;
-            this.router.navigate(['/voiture/fiche/'+this.id_voiture]);
-            });
-            console.log("ato");
+            this.dataService.fetchData(`${environment.baseUrl}/reparation/${this.id_voiture}`,{headers})
             }
             else{
                 this.error=true;
