@@ -4,23 +4,23 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Router, RouterModule } from '@angular/router';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { RecuModalComponent } from './popup/FormPopupComponent';
 
 @Component({
   selector: 'app-basic-elements',
   standalone: true,
   imports: [SharedModule,RouterModule,NgxPaginationModule],
-  templateUrl: './liste.component.html',
-  styleUrls: ['./liste.component.scss'],
+  templateUrl: './recu.component.html',
+  styleUrls: ['./recu.component.scss'],
   
 })
-export default class ListeComponent implements OnInit{
+export default class RecuComponent implements OnInit{
   reparations : any ;
   p : any ;
-  form = {
-    etat : "reçu"
-  }
+  form : any;
 
-  constructor(private http: HttpClient,private router: Router) {}
+  constructor(private http: HttpClient,private router: Router,private modalService: NgbModal) {}
 
     ngOnInit(): void {
       var token : string;
@@ -37,30 +37,12 @@ export default class ListeComponent implements OnInit{
   const headers = new HttpHeaders({
       'Authorization': 'Bearer ' + token
   });
-  this.http.get(`${environment.baseUrl}/reparationbyetat/en attente`, {headers}).subscribe(data => {
+  this.http.get(`${environment.baseUrl}/reparationbyetat/reçu`, {headers}).subscribe(data => {
       this.reparations = data;
       console.log(this.reparations)
   });
   }
 
-  affecter(id : string){
-    var token : string;
-    
-    if(localStorage.getItem('user')!=null){
-      token = JSON.parse(localStorage.getItem('user')).token;
-      console.log(token)
-  }
-
-    let headers = new HttpHeaders({
-      'Authorization': 'Bearer ' + token
-    });
-    console.log("atyyy ehh "+id)
-    this.http.post(`${environment.baseUrl}/uptadeetat/${id}`,this.form,{ headers: headers })
-    .subscribe(response => {
-      console.log(response);
-      // this.router.navigate(['/voiture/list']);
-    });
-  }
 
   search(searchTerm: string) {  
       if(searchTerm.length==0) this.reparations = this.reparations;
@@ -72,6 +54,10 @@ export default class ListeComponent implements OnInit{
           );
       }
     }
+    openModal(data:any) {
+      const modalRef = this.modalService.open(RecuModalComponent);
+      modalRef.componentInstance.id_reparation = data;
+  }
 }
     
     

@@ -19,6 +19,12 @@ export const AtelierMenu = [
             },
             {
               id: 'badges',
+              title: 'Voitures reçu',
+              type: 'item',
+              url: '/reparation/recu',
+            },
+            {
+              id: 'badges',
               title: 'Reparation en cours',
               type: 'item',
               url: '/basic/badges',

@@ -25,6 +25,7 @@ import { ToggleFullScreenDirective } from './theme/shared/components/full-screen
 import { HttpClientModule } from '@angular/common/http';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { ListeComponent } from './pages/reparation/liste/liste.component';
+import { RecuModalComponent } from './demo/pages/reparation/recu/popup/FormPopupComponent';
 
 @NgModule({
     declarations: [
@@ -44,6 +45,7 @@ import { ListeComponent } from './pages/reparation/liste/liste.component';
         NavSearchComponent,
         ToggleFullScreenDirective,
         ListeComponent,
+        RecuModalComponent
 
     ],
   imports: [
@@ -56,7 +58,7 @@ import { ListeComponent } from './pages/reparation/liste/liste.component';
     HttpClientModule,
     FormsModule, 
     NgxDropzoneModule,
-    NgxPaginationModule
+    NgxPaginationModule,
     ],
   providers: [NavigationItem],
   bootstrap: [AppComponent],
