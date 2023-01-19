@@ -11,11 +11,11 @@ import { EncoursModalComponent } from './popup/FormPopupComponent';
   selector: 'app-basic-elements',
   standalone: true,
   imports: [SharedModule,RouterModule,NgxPaginationModule],
-  templateUrl: './recu.component.html',
-  styleUrls: ['./recu.component.scss'],
+  templateUrl: './encours.component.html',
+  styleUrls: ['./encours.component.scss'],
   
 })
-export default class RecuComponent implements OnInit{
+export default class EncoursComponent implements OnInit{
   reparations : any ;
   p : any ;
   form : any;

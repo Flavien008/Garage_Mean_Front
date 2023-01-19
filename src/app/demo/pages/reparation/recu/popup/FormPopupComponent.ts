@@ -106,8 +106,7 @@ export class RecuModalComponent implements OnInit {
     this.http.post(`${environment.baseUrl}/updateetat/${id}`,this.etat,{ headers: headers })
     .subscribe(response => {
       console.log(response);
-      this.router.navigate(['/reparation/reçu']);
-      this.activeModal.close();
+      this.router.navigate(['/reparation/encours']);
     });
   }
   

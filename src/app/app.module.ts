@@ -26,6 +26,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { ListeComponent } from './pages/reparation/liste/liste.component';
 import { RecuModalComponent } from './demo/pages/reparation/recu/popup/FormPopupComponent';
+import { EncoursModalComponent } from './demo/pages/reparation/encours/popup/FormPopupComponent';
 
 @NgModule({
     declarations: [
@@ -45,7 +46,8 @@ import { RecuModalComponent } from './demo/pages/reparation/recu/popup/FormPopup
         NavSearchComponent,
         ToggleFullScreenDirective,
         ListeComponent,
-        RecuModalComponent
+        RecuModalComponent,
+        EncoursModalComponent
 
     ],
   imports: [

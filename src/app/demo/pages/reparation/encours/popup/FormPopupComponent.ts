@@ -6,26 +6,41 @@ import { environment } from 'src/environments/environment';
 @Component({
   selector: 'app-form-modal',
   template: `
-    <div class="modal-header">
-      <h4 class="modal-title">Saisie nouvelle réparation</h4>
-      <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-    <div class="modal-body">
-        <form>
-            <div class="form-group">
-                <label for="name">Designation</label>
-                <br>
-                    <input type="text" class="form-control" id="designation" #designation>
-            </div>
-                <div class="form-group">
-                <label for="name">Prix</label>
-                <br>
-                    <input type="number" class="form-control" id="prix" #prix>
-            </div>
-        </form>
-    </div>
+  <div class="modal-header">
+  <h4 class="modal-title">Modification avancement</h4>
+  <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+
+<div class="table-responsive">
+<table class="table table-hover">
+<thead>
+    <tr>
+        <th>Designation</th>
+        <th>Prix</th>
+        <th>Avancement</th>
+        
+    </tr>
+</thead>
+<tbody>
+    <tr *ngFor="let liste of listedetails">
+        <td>{{ liste.designation }}</td>
+        <td>{{ liste.prix }}</td>
+        <td> <input
+                type="range"
+                class="form-control-range d-block"
+                id="formControlRange"
+              /></td>
+        
+    </tr>
+
+</tbody>
+</table>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-outline-dark" (click)= "affecter(reparation._id)" >Valider</button>       
+</div>
   `
 })
 

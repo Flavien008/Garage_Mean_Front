@@ -27,7 +27,7 @@ export const AtelierMenu = [
               id: 'badges',
               title: 'Reparation en cours',
               type: 'item',
-              url: '/basic/badges',
+              url: '/reparation/encours',
             },
             {
               id: 'breadcrumb-pagination',

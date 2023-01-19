@@ -6,7 +6,7 @@ const routes: Routes = [
     path: '',
     children: [
       {
-        path: 'recu',
+        path: 'encours',
         loadComponent: () =>
           import('./encours.component'), 
       },
@@ -18,4 +18,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class RecuRoutingModule {}
+export class EncoursRoutingModule {}
