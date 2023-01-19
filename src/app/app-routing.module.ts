@@ -27,6 +27,13 @@ const routes: Routes = [
           ),
       },
       {
+        path: 'reparation',
+        loadChildren: () =>
+          import('./demo/pages/reparation/reparation.module').then(
+            (m) => m.ReparationModule
+          ),
+      },
+      {
         path: 'voiture',
         loadChildren: () =>
           import('./demo/pages/form-elements/form-elements.module').then(
@@ -34,7 +41,7 @@ const routes: Routes = [
           ),
       },
       {
-        path: 'tables',
+        path: 'reparation',
         loadChildren: () =>
           import('./demo/pages/tables/tables.module').then(
             (m) => m.TablesModule

@@ -25,7 +25,7 @@ export default class AuthSignupComponent {
       nom: new FormControl(''),
       login: new FormControl(''),
       password: new FormControl(''),
-      role: new FormControl('Client'),
+      role: new FormControl('client'),
       tel: new FormControl(''),
       email: new FormControl(''),
     });

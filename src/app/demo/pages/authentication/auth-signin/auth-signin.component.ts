@@ -17,6 +17,7 @@ export default class AuthSigninComponent implements OnInit{
     defaultLog : string = "Flavien";
     defaultPwd : string = "1234";
     loginError : boolean = false
+    role : any;
 
     constructor(private authService : AuthService,private router: Router){}
 
@@ -38,7 +39,16 @@ export default class AuthSigninComponent implements OnInit{
                 response => {
                     this.loginError = false;
                     localStorage.setItem('user', JSON.stringify(response));
-                    this.router.navigate(['/voiture/ajout']);
+
+                    console.log("atooooo"+ JSON.parse(localStorage.getItem('user')).role)
+                    if(JSON.parse(localStorage.getItem('user')).role == "atelier"){
+                        console.log(JSON.parse(localStorage.getItem('user')).role);
+                        this.router.navigate(['/reparation/liste'])
+                    }
+                    if(JSON.parse(localStorage.getItem('user')).role == "client"){
+                        console.log(JSON.parse(localStorage.getItem('user')).role);
+                        this.router.navigate(['/voiture/ajout']);
+                    }
                 },
                 error => {
                     if(error.status == 401) {

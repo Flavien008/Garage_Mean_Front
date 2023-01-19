@@ -24,6 +24,7 @@ import { NavigationItem } from './theme/layout/admin/navigation/navigation';
 import { ToggleFullScreenDirective } from './theme/shared/components/full-screen/toggle-full-screen';
 import { HttpClientModule } from '@angular/common/http';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { ListeComponent } from './pages/reparation/liste/liste.component';
 
 @NgModule({
     declarations: [
@@ -42,6 +43,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
         NavItemComponent,
         NavSearchComponent,
         ToggleFullScreenDirective,
+        ListeComponent,
 
     ],
   imports: [
