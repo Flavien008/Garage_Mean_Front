@@ -1,6 +1,5 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, Input, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { environment } from 'src/environments/environment';
 
@@ -27,49 +26,20 @@ import { environment } from 'src/environments/environment';
             </div>
         </form>
     </div>
-    <div class="modal-footer">
-      <button type="button" class="btn btn-outline-dark" (click)="submitForm(designation.value,prix.value)">Ajouter</button>       
-    </div>
-    <div class="table-responsive">
-    <div class="table-responsive">
-    <table class="table table-hover">
-    <thead>
-        <tr>
-            <th>Designation</th>
-            <th>Prix</th>
-            
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let liste of listedetails">
-            <td>{{ liste.designation }}</td>
-            <td>{{ liste.prix }}</td>
-            
-        </tr>
-
-    </tbody>
-    </table>
-</div>
-  </div>
-  <div class="modal-footer">
-      <button type="button" class="btn btn-outline-dark" (click)= "affecter(reparation._id)" >Valider</button>       
-    </div>
   `
 })
 
-export class RecuModalComponent implements OnInit {
+export class EncoursModalComponent implements OnInit {
   listedetails : any;
   reparation : any;
-  etat = {
-    "etat" : "en cours"
-  }
+  form: any;
  
   @Input() id_reparation: any;
     loading = false;
     error = false;
 
 
-    constructor(public activeModal: NgbActiveModal,private http: HttpClient,private router: Router) { }
+    constructor(public activeModal: NgbActiveModal,private http: HttpClient) { }
 
     ngOnInit() {
       var token : string;
@@ -103,42 +73,13 @@ export class RecuModalComponent implements OnInit {
       'Authorization': 'Bearer ' + token
     });
     console.log("atyyy ehh "+id)
-    this.http.post(`${environment.baseUrl}/updateetat/${id}`,this.etat,{ headers: headers })
+    this.http.post(`${environment.baseUrl}/updateetat/${id}`,this.form,{ headers: headers })
     .subscribe(response => {
       console.log(response);
-      this.router.navigate(['/reparation/reçu']);
+      // this.router.navigate(['/voiture/list']);
       this.activeModal.close();
     });
   }
   
-  submitForm(designation:string,prix:any) {
-    var token : string;
-    if(localStorage.getItem('user')!=null){
-    token = JSON.parse(localStorage.getItem('user')).token;
-let headers = new HttpHeaders({
-    'Authorization': 'Bearer ' + token
-});
-var data = {
-  "id_reparation":this.id_reparation,
-  "designation": designation,
-  "prix": prix,
-  "avancement" : 0
-}
 
-if(designation!=''&&prix!=''){
-
-    this.error=false;
-    this.http.post(`${environment.baseUrl}/reparation/details`, data, { headers: headers }) 
-      .subscribe(response => {
-        console.log(response);
-        this.loading = false;
-        this.fetchData(token);
-      });
-    }
-    else{
-        this.error=true;
-        this.loading = false;
-    }
-}
-}
 }
