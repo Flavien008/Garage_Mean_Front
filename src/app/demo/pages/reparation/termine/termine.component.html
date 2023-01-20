@@ -1,7 +1,7 @@
 <div class="row">
     <div class="col-xl-12">
       <app-card
-        cardTitle="Liste des voitures a reparer"
+        cardTitle="Liste des voitures terminés"
         [options]="false"
         blockClass="table-border-style"
       >
@@ -26,13 +26,12 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr *ngFor="let rep of reparations | paginate: { itemsPerPage: 5, currentPage: p }" >
+                  <tr *ngFor="let rep of reparations | paginate: { itemsPerPage: 5, currentPage: p }"  (click)="openModal(rep._id)">
                       <td>{{ rep.designation }}</td>
                       <td>{{ rep.date_depot }}</td>
                       <td>{{ rep.modele }}</td>
                       <td>{{ rep.matriculation }}</td>
                       <td>{{ rep.etat }}</td>
-                      <td><button type="button" class="btn btn-outline-dark" (click)="affecter(rep._id)" >Recuperer</button> </td>
                   </tr>
                 </tbody>
                 <pagination-controls (pageChange)="p = $event"></pagination-controls>

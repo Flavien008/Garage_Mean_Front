@@ -27,6 +27,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { ListeComponent } from './pages/reparation/liste/liste.component';
 import { RecuModalComponent } from './demo/pages/reparation/recu/popup/FormPopupComponent';
 import { EncoursModalComponent } from './demo/pages/reparation/encours/popup/FormPopupComponent';
+import { TermineModalComponent } from './demo/pages/reparation/termine/popup/FormPopupComponent';
 
 @NgModule({
     declarations: [
@@ -47,7 +48,8 @@ import { EncoursModalComponent } from './demo/pages/reparation/encours/popup/For
         ToggleFullScreenDirective,
         ListeComponent,
         RecuModalComponent,
-        EncoursModalComponent
+        EncoursModalComponent,
+        TermineModalComponent 
 
     ],
   imports: [

@@ -1,6 +1,5 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, Input, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { environment } from 'src/environments/environment';
 
@@ -27,43 +26,32 @@ import { environment } from 'src/environments/environment';
 <tbody>
     <tr *ngFor="let liste of listedetails">
         <td>{{ liste.designation }}</td>
-        <td>{{ liste.prix }}</td>
-        <td> <input
-                type="range"
-                class="form-control-range d-block"
-                [(ngModel)]="currentValue"
-                min="0" max="100" value="10"
-              /></td>
-        
+        <td>{{ liste.prix }}</td>    
     </tr>
 
 </tbody>
 </table>
 </div>
 <div class="modal-footer">
-  <button type="button" class="btn btn-outline-dark" (click)= "affecter(reparation._id)" >Valider</button>       
+  <button type="button" class="btn btn-outline-dark" >Valider</button>       
 </div>
   `
 })
 
-export class EncoursModalComponent implements OnInit {
+export class TermineModalComponent implements OnInit {
   listedetails : any;
   reparation : any;
   form = {
     etat : "terminé"
   };
-  currentValue ;
 
-  getValue() {
-    console.log(this.currentValue);
-  }
  
   @Input() id_reparation: any;
     loading = false;
     error = false;
 
 
-    constructor(public activeModal: NgbActiveModal,private http: HttpClient,private router: Router) { }
+    constructor(public activeModal: NgbActiveModal,private http: HttpClient) { }
 
     ngOnInit() {
       var token : string;
@@ -100,7 +88,7 @@ export class EncoursModalComponent implements OnInit {
     this.http.post(`${environment.baseUrl}/updateetat/${id}`,this.form,{ headers: headers })
     .subscribe(response => {
       console.log(response);
-      this.router.navigate(['/reparation/termine']);
+      // this.router.navigate(['/voiture/list']);
       this.activeModal.close();
     });
   }
