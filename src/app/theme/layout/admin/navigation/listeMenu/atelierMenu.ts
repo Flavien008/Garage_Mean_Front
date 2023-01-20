@@ -33,7 +33,7 @@ export const AtelierMenu = [
               id: 'breadcrumb-pagination',
               title: 'Réparation terminer',
               type: 'item',
-              url: '/basic/breadcrumb-paging',
+              url: '/reparation/termine',
             },
           ],
         },
