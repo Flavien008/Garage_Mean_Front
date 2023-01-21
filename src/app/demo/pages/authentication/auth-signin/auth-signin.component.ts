@@ -49,6 +49,10 @@ export default class AuthSigninComponent implements OnInit{
                         console.log(JSON.parse(localStorage.getItem('user')).role);
                         this.router.navigate(['/voiture/ajout']);
                     }
+                    if(JSON.parse(localStorage.getItem('user')).role == "finance"){
+                        console.log(JSON.parse(localStorage.getItem('user')).role);
+                        this.router.navigate(['/reparation/termine'])
+                    }
                 },
                 error => {
                     if(error.status == 401) {

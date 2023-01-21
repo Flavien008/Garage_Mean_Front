@@ -16,6 +16,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 export default class ListeComponent implements OnInit{
   reparations : any ;
   p : any ;
+  token : string;
   form = {
     etat : "reçu"
   }
@@ -23,38 +24,26 @@ export default class ListeComponent implements OnInit{
   constructor(private http: HttpClient,private router: Router) {}
 
     ngOnInit(): void {
-      var token : string;
-      var iduser : string;
-      if(localStorage.getItem('user')!=null){
-          token = JSON.parse(localStorage.getItem('user')).token;
-          iduser = JSON.parse(localStorage.getItem('user')).userId;
-
-      }
-      this.fetchData(iduser,token);
+    if(localStorage.getItem('user')!=null){
+        this.token = JSON.parse(localStorage.getItem('user')).token;
+    }
+      this.fetchData();
   }
   
-  fetchData(id:string,token: string) {
-  const headers = new HttpHeaders({
-      'Authorization': 'Bearer ' + token
-  });
-  this.http.get(`${environment.baseUrl}/reparationbyetat/en attente`, {headers}).subscribe(data => {
-      this.reparations = data;
-      console.log(this.reparations)
-  });
-  }
+  fetchData() {
+    const headers = new HttpHeaders({
+        'Authorization': 'Bearer ' + this.token
+    });
+    this.http.get(`${environment.baseUrl}/reparationbyetat/en attente`, {headers}).subscribe(data => {
+        this.reparations = data;
+        console.log(this.reparations)
+    });
+    }
 
   affecter(id : string){
-    var token : string;
-    
-    if(localStorage.getItem('user')!=null){
-      token = JSON.parse(localStorage.getItem('user')).token;
-      console.log(token)
-  }
-
     let headers = new HttpHeaders({
-      'Authorization': 'Bearer ' + token
+      'Authorization': 'Bearer ' + this.token
     });
-    console.log("atyyy ehh "+id)
     this.http.post(`${environment.baseUrl}/updateetat/${id}`,this.form,{ headers: headers })
     .subscribe(response => {
       console.log(response);

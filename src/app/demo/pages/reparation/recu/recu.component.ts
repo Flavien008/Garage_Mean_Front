@@ -19,41 +19,38 @@ export default class RecuComponent implements OnInit{
   reparations : any ;
   p : any ;
   form : any;
+  token : string;
 
   constructor(private http: HttpClient,private router: Router,private modalService: NgbModal) {}
 
     ngOnInit(): void {
-      var token : string;
-      var iduser : string;
       if(localStorage.getItem('user')!=null){
-          token = JSON.parse(localStorage.getItem('user')).token;
-          iduser = JSON.parse(localStorage.getItem('user')).userId;
-
+          this.token = JSON.parse(localStorage.getItem('user')).token;
       }
-      this.fetchData(iduser,token);
+      this.fetchData();
   }
   
-  fetchData(id:string,token: string) {
-  const headers = new HttpHeaders({
-      'Authorization': 'Bearer ' + token
-  });
-  this.http.get(`${environment.baseUrl}/reparationbyetat/reçu`, {headers}).subscribe(data => {
-      this.reparations = data;
-      console.log(this.reparations)
-  });
-  }
-
-
-  search(searchTerm: string) {  
-      if(searchTerm.length==0) this.reparations = this.reparations;
-      else
-      {
-          this.reparations = this.reparations.filter(item =>
-          item.modele.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          item.matriculation.toLowerCase().includes(searchTerm.toLowerCase())
-          );
-      }
+    fetchData() {
+    const headers = new HttpHeaders({
+        'Authorization': 'Bearer ' + this.token
+    });
+    this.http.get(`${environment.baseUrl}/reparationbyetat/reçu`, {headers}).subscribe(data => {
+        this.reparations = data;
+        console.log(this.reparations)
+    });
     }
+
+
+    search(searchTerm: string) {  
+        if(searchTerm.length==0) this.fetchData();
+        else
+        {
+            this.reparations = this.reparations.filter(item =>
+            item.modele.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            item.matriculation.toLowerCase().includes(searchTerm.toLowerCase())
+            );
+        }
+        }
     openModal(data:any) {
       const modalRef = this.modalService.open(RecuModalComponent);
       modalRef.componentInstance.id_reparation = data;

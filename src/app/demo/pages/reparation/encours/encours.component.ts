@@ -19,33 +19,30 @@ export default class EncoursComponent implements OnInit{
   reparations : any ;
   p : any ;
   form : any;
+  token : string;
 
   constructor(private http: HttpClient,private router: Router,private modalService: NgbModal) {}
 
     ngOnInit(): void {
-      var token : string;
-      var iduser : string;
-      if(localStorage.getItem('user')!=null){
-          token = JSON.parse(localStorage.getItem('user')).token;
-          iduser = JSON.parse(localStorage.getItem('user')).userId;
-
-      }
-      this.fetchData(iduser,token);
-  }
+        if(localStorage.getItem('user')!=null){
+            this.token = JSON.parse(localStorage.getItem('user')).token;
+        }
+      this.fetchData();
+    } 
   
-  fetchData(id:string,token: string) {
-  const headers = new HttpHeaders({
-      'Authorization': 'Bearer ' + token
-  });
-  this.http.get(`${environment.baseUrl}/reparationbyetat/en cours`, {headers}).subscribe(data => {
-      this.reparations = data;
-      console.log(this.reparations)
-  });
-  }
+    fetchData() {
+        const headers = new HttpHeaders({
+            'Authorization': 'Bearer ' + this.token
+        });
+        this.http.get(`${environment.baseUrl}/reparationbyetat/en cours`, {headers}).subscribe(data => {
+            this.reparations = data;
+            console.log(this.reparations)
+        });
+    }
 
 
-  search(searchTerm: string) {  
-      if(searchTerm.length==0) this.reparations = this.reparations;
+    search(searchTerm: string) {  
+      if(searchTerm.length==0) this.fetchData();
       else
       {
           this.reparations = this.reparations.filter(item =>
