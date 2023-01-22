@@ -23,15 +23,19 @@
                       <th>Modele</th>
                       <th>Immatriculation</th>
                       <th>Etat</th>
+                      <th>Total</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr *ngFor="let rep of reparations | paginate: { itemsPerPage: 5, currentPage: p }"  (click)="openModal(rep._id)">
-                      <td>{{ rep.designation }}</td>
+                  <tr *ngFor="let rep of reparations | paginate: { itemsPerPage: 5, currentPage: p }" >
+                      <td (click)="openModal(rep._id)">{{ rep.designation }}</td>
                       <td>{{ rep.date_depot }}</td>
                       <td>{{ rep.modele }}</td>
                       <td>{{ rep.matriculation }}</td>
                       <td>{{ rep.etat }}</td>
+                      <td>{{ rep.total }}</td>
+                      <td><button class="btn btn-primary">Facturer</button></td>
+
                   </tr>
                 </tbody>
                 <pagination-controls (pageChange)="p = $event"></pagination-controls>

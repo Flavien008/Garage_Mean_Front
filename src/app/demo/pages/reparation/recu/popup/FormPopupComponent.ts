@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { forkJoin, mergeMap } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -46,6 +47,11 @@ import { environment } from 'src/environments/environment';
             <td>{{ liste.prix }}</td>
             
         </tr>
+        <br>
+        <tr>
+            <td> <b>Total</b> </td>
+            <td>{{total}}</td>
+        </tr>
 
     </tbody>
     </table>
@@ -63,6 +69,8 @@ export class RecuModalComponent implements OnInit {
   etat = {
     "etat" : "en cours"
   }
+
+  total : number = 0;
  
   @Input() id_reparation: any;
     loading = false;
@@ -87,57 +95,64 @@ export class RecuModalComponent implements OnInit {
         this.reparation = data;
         this.listedetails = this.reparation.details;
         console.log(this.listedetails);
+        this.total = 0;
+        if(this.listedetails!=null){
+            for(var i = 0 ; i < this.listedetails.length; i++ ){
+                this.total += Number(this.listedetails[i].prix);
+            }
+        }
       });
 
-  }
-  affecter(id : string){
-    console.log(id);
-    var token : string;
-    
-    if(localStorage.getItem('user')!=null){
-      token = JSON.parse(localStorage.getItem('user')).token;
-      console.log(token)
-  }
+    }
 
-    let headers = new HttpHeaders({
-      'Authorization': 'Bearer ' + token
-    });
-    console.log("atyyy ehh "+id)
-    this.http.post(`${environment.baseUrl}/updateetat/${id}`,this.etat,{ headers: headers })
-    .subscribe(response => {
-      console.log(response);
-      this.router.navigate(['/reparation/encours']);
-    });
-  }
+    affecter(id : string){
+        var token : string;
+        
+        if(localStorage.getItem('user')!=null){
+        token = JSON.parse(localStorage.getItem('user')).token;
+        console.log(token)
+        }
+
+        let headers = new HttpHeaders({
+        'Authorization': 'Bearer ' + token
+        });
+            var req1 = this.http.post(`${environment.baseUrl}/reparation/prix`,{"id" : this.id_reparation,"prix": this.total},{ headers: headers });
+            var req2 = this.http.post(`${environment.baseUrl}/updateetat/${id}`,this.etat,{ headers: headers });
+            //exec multiple req
+            forkJoin([req1,req2]).subscribe(results => {
+                console.log('manoloo prix');
+            })
+            this.router.navigate(['/reparation/encours']);
+        this.activeModal.close();
+    }
   
   submitForm(designation:string,prix:any) {
     var token : string;
     if(localStorage.getItem('user')!=null){
-    token = JSON.parse(localStorage.getItem('user')).token;
-let headers = new HttpHeaders({
-    'Authorization': 'Bearer ' + token
-});
-var data = {
-  "id_reparation":this.id_reparation,
-  "designation": designation,
-  "prix": prix,
-  "avancement" : 0
-}
+        token = JSON.parse(localStorage.getItem('user')).token;
+        let headers = new HttpHeaders({
+            'Authorization': 'Bearer ' + token
+        });
+        var data = {
+            "id_reparation":this.id_reparation,
+            "designation": designation,
+            "prix": prix,
+            "avancement" : 0
+        }
 
-if(designation!=''&&prix!=''){
+        if(designation!=''&&prix!=''){
 
-    this.error=false;
-    this.http.post(`${environment.baseUrl}/reparation/details`, data, { headers: headers }) 
-      .subscribe(response => {
-        console.log(response);
-        this.loading = false;
-        this.fetchData(token);
-      });
+            this.error=false;
+            this.http.post(`${environment.baseUrl}/reparation/details`, data, { headers: headers }) 
+            .subscribe(response => {
+                this.loading = false;
+                this.fetchData(token);
+            });
+            }
+            else{
+                this.error=true;
+                this.loading = false;
+            }
+        }
     }
-    else{
-        this.error=true;
-        this.loading = false;
-    }
-}
-}
 }
