@@ -14,7 +14,6 @@ import { forkJoin } from 'rxjs';
   imports: [SharedModule,RouterModule,NgxPaginationModule],
   templateUrl: './termine.component.html',
   styleUrls: ['./termine.component.scss'],
-  
 })
 export default class TermineComponent implements OnInit{
     reparations : any ;
@@ -45,8 +44,10 @@ export default class TermineComponent implements OnInit{
             "modele":  reparation.modele,
             "matriculation": reparation.matriculation,
             "idreparation": reparation._id,
-            "DateFacture": new Date().toLocaleDateString(),
-            "montant" : reparation.total
+            "dateFacture": new Date().toLocaleDateString(),
+            "montant" : reparation.total,
+            "payer" : 0 ,
+            "reste" : 0
         }
         var req1 = this.http.post(`${environment.baseUrl}/object`, data, { headers: headers }) 
         var req2 = this.http.get(`${environment.baseUrl}/reparation/facturer/${reparation._id}`, { headers: headers }) 

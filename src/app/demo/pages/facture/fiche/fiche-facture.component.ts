@@ -21,8 +21,8 @@ import { map, Observable } from 'rxjs';
 })
 export default class FicheFactureCompoment implements OnInit{
     state$: Observable<object>;
-    voiture : any ;
-    reparations :any;
+    reparation : any ;
+    facture :any;
     p : any ;
     token : string;
 
@@ -30,24 +30,24 @@ export default class FicheFactureCompoment implements OnInit{
     ngOnInit(): void {
         this.state$ = this.route.paramMap.pipe(map(() => window.history.state))
         this.state$.subscribe(data => {
-            this.voiture = data;
+            this.reparation = data;
         });
         
         
         if(localStorage.getItem('user')!=null){
             this.token = JSON.parse(localStorage.getItem('user')).token;
         }
-        this.fetchData(this.voiture._id,this.token);
+        this.fetchData(this.reparation._id,this.token);
         this.dataService.data$.subscribe(data => {
-            this.reparations = data;
+            this.facture = data;
           });
     }
 
-    fetchData(idVoiture:string,token: string) {
+    fetchData(idReparation:string,token: string) {
       const headers = new HttpHeaders({
           'Authorization': 'Bearer ' + token
     });
-    this.dataService.fetchData(`${environment.baseUrl}/reparation/${idVoiture}`,{headers});
+        this.dataService.fetchData(`${environment.baseUrl}/facture/${idReparation}`,{headers});
     }
 
     openModal(data:any) {
@@ -60,20 +60,4 @@ export default class FicheFactureCompoment implements OnInit{
         detailRef.componentInstance.id_reparation = data;
       }
 
-      search(searchTerm: string) {  
-        console.log(searchTerm);
-        
-        if(searchTerm.length==0) {
-            this.dataService.data$.subscribe(data => {
-                this.reparations = data;
-              });
-        }
-        else
-        {
-            this.reparations = this.reparations.filter(item =>
-            item.designation.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            item.etat.toLowerCase().includes(searchTerm.toLowerCase())
-            );
-        }
-      }
 }

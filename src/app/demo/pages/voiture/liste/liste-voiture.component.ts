@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { SharedModule } from 'src/app/theme/shared/shared.module';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import { Router, RouterModule } from '@angular/router';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-basic-elements',
@@ -16,7 +16,7 @@ export default class BasicElementsComponent implements OnInit{
     user : any ;
     voitures : any ;
 
-    constructor(private http: HttpClient,private router: Router) {}
+    constructor(private http: HttpClient) {}
 
     ngOnInit(): void {
         var token : string;

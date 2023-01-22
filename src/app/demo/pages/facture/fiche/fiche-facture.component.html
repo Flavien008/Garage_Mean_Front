@@ -1,46 +1,58 @@
 <div class="row">
   <div class="col-xl-12">
     <app-card
-      cardTitle="Facture"
+      cardTitle="Facture Client"
       [options]="false"
       blockClass="table-border-style"
     >
-        <div class="container">
-            <div class="box" [ngStyle]="{'display': 'flex', 'justify-content': 'space-between'}">
-            <div class="box-part"><h5>Voiture : {{voiture.matriculation +" "+voiture.modele }}</h5></div>
-            <div class="box-part">
-						  <input type="text" #indice id="icon-search" class="form-control mb-4" placeholder="search . . " (keyup)="search(indice.value)">
-            </div> 
-            <div class="box-part"><button class="btn btn-primary" (click)="openModal(voiture)">Nouvelle réparation</button></div>
-            </div>
+    <div class="container">
+        <div class="box" [ngStyle]="{'display': 'flex'}">
+            <div class="col-md-3"><p class="text-black">Designation : </p></div> <div class="col-md-3"><p class="text-black"> {{ facture.designation }}</p></div> 
         </div>
-
-        <div class="table-responsive">
-            <table class="table table-hover">
-              <thead>
-                <tr>
-                    <th>Designation</th>
-                    <th>Depot</th>
-                    <th>Début</th>
-                    <th>Fin</th>
-                    <th>Etat</th>
-                    <th>Facture</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr *ngFor="let rep of reparations | paginate: { itemsPerPage: 5, currentPage: p }" (click)="openDetails(rep._id)" >
-                    <td>{{ rep.designation }}</td>
-                    <td>{{ rep.date_depot }}</td>
-                    <td>{{ rep.datedebut }}</td>
-                    <td>{{ rep.datefin }}</td>
-                    <td>{{ rep.etat }}</td>
-                    <td>{{ rep.idfacture }}</td>
-                </tr>
-              </tbody>
-              <pagination-controls (pageChange)="p = $event"></pagination-controls>
-
-            </table>
+        <div class="box" [ngStyle]="{'display': 'flex'}">
+          <div class="col-md-3"><p class="text-black">Voiture : </p></div> <div class="col-md-3"><p class="text-black"> {{ facture.modele +" "+  facture.matriculation}}</p></div> 
+        </div>
+        <div class="box" [ngStyle]="{'display': 'flex'}">
+            <div class="col-md-3"><p class="text-black">Date : </p></div> <div class="col-md-3"><p class="text-black"> {{ facture.dateFacture }}</p></div> 
+        </div>
+        <div class="box" [ngStyle]="{'display': 'flex'}">
+            <div class="col-md-3"><p class="text-black">Net à payer : </p></div> <div class="col-md-3"><p class="text-black"> {{ facture.montant }}</p></div> 
+        </div>
+        <div class="box" [ngStyle]="{'display': 'flex'}">
+            <div class="col-md-3"><p class="text-black">Montant payer : </p></div> <div class="col-md-3"><p class="text-black"> {{ facture.payer }}</p></div> 
           </div>
+        <div class="box" [ngStyle]="{'display': 'flex'}">
+            <div class="col-md-3"><p class="text-black">Reste à payer : </p></div> <div class="col-md-3"><p class="text-black"> {{ facture.reste }}</p></div> 
+        </div>
+    </div>
+    <hr>
+    <h5 class="text-center">Liste(s) paiement(s)</h5>
+    <br>
+    <div class="table-responsive">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+                <th>Designation</th>
+                <th>Depot</th>
+                <th>Début</th>
+                <th>Fin</th>
+                <th>Etat</th>
+                <th>Facture</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- <tr *ngFor="let rep of reparations | paginate: { itemsPerPage: 5, currentPage: p }" (click)="openDetails(rep._id)" >
+                <td>{{ rep.designation }}</td>
+                <td>{{ rep.date_depot }}</td>
+                <td>{{ rep.datedebut }}</td>
+                <td>{{ rep.datefin }}</td>
+                <td>{{ rep.etat }}</td>
+                <td>{{ rep.idfacture }}</td>
+            </tr> -->
+          </tbody>
+
+        </table>
+      </div>
     </app-card>
   </div>
 </div>

@@ -1,7 +1,7 @@
 export const FinanceMenu = [
     {
       id: 'navigation',
-      title: 'Financee',
+      title: 'Finance',
       type: 'group',
       icon: 'icon-navigation',
       children: [
