@@ -9,7 +9,7 @@ import { environment } from 'src/environments/environment';
   selector: 'app-form-modal',
   template: `
     <div class="modal-header">
-      <h4 class="modal-title">Saisie nouvelle réparation</h4>
+      <h4 class="modal-title">Saisie details réparation</h4>
       <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
         <span aria-hidden="true">&times;</span>
       </button>

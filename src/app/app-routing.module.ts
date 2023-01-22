@@ -34,17 +34,10 @@ const routes: Routes = [
           ),
       },
       {
-        path: 'voiture',
+        path: 'facture',
         loadChildren: () =>
-          import('./demo/pages/form-elements/form-elements.module').then(
-            (m) => m.FormElementsModule
-          ),
-      },
-      {
-        path: 'reparation',
-        loadChildren: () =>
-          import('./demo/pages/tables/tables.module').then(
-            (m) => m.TablesModule
+          import('./demo/pages/facture/facture.module').then(
+            (m) => m.FactureModule
           ),
       },
       {

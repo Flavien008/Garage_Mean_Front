@@ -5,7 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { FormModalComponent } from "./pop-up/FormPopupComponent";
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { DetailsModalCompoment } from './pop-up/DetailsPopupCompoment';
-import { HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { DataService } from 'src/app/_services/data.service';
@@ -15,11 +15,11 @@ import { map, Observable } from 'rxjs';
 @Component({
     selector: 'app-tbl-bootstrap',
     standalone: true,
-    templateUrl: './fiche-voiture.component.html',
-    styleUrls: ['./fiche-voiture.component.scss'],
+    templateUrl: './fiche-facture.component.html',
+    styleUrls: ['./fiche-facture.component.scss'],
     imports: [CommonModule, SharedModule,NgxPaginationModule]
 })
-export default class FicheVoitureCompoment implements OnInit{
+export default class FicheFactureCompoment implements OnInit{
     state$: Observable<object>;
     voiture : any ;
     reparations :any;
