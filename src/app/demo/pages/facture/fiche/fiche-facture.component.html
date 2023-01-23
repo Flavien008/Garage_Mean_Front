@@ -1,56 +1,64 @@
 <div class="row">
   <div class="col-xl-12">
     <app-card
-      cardTitle="Facture Client"
+      cardTitle="Facture"
       [options]="false"
       blockClass="table-border-style"
     >
     <div class="container">
-        <div class="box" [ngStyle]="{'display': 'flex'}">
-            <div class="col-md-3"><p class="text-black">Designation : </p></div> <div class="col-md-3"><p class="text-black"> {{ facture.designation }}</p></div> 
-        </div>
-        <div class="box" [ngStyle]="{'display': 'flex'}">
-          <div class="col-md-3"><p class="text-black">Voiture : </p></div> <div class="col-md-3"><p class="text-black"> {{ facture.modele +" "+  facture.matriculation}}</p></div> 
-        </div>
-        <div class="box" [ngStyle]="{'display': 'flex'}">
-            <div class="col-md-3"><p class="text-black">Date : </p></div> <div class="col-md-3"><p class="text-black"> {{ facture.dateFacture }}</p></div> 
-        </div>
-        <div class="box" [ngStyle]="{'display': 'flex'}">
-            <div class="col-md-3"><p class="text-black">Net à payer : </p></div> <div class="col-md-3"><p class="text-black"> {{ facture.montant }}</p></div> 
-        </div>
-        <div class="box" [ngStyle]="{'display': 'flex'}">
-            <div class="col-md-3"><p class="text-black">Montant payer : </p></div> <div class="col-md-3"><p class="text-black"> {{ facture.payer }}</p></div> 
+        <div class="box" [ngStyle]="{'display': 'flex', 'justify-content': 'space-between'}">
+          <div class="box-part"><h5>Details facture</h5></div>
+          <div class="box-part"></div>
+          <div class="box-part">
+            <button class="btn btn-primary" (click)="openModal(facture)">Saisie paiement</button>
           </div>
-        <div class="box" [ngStyle]="{'display': 'flex'}">
-            <div class="col-md-3"><p class="text-black">Reste à payer : </p></div> <div class="col-md-3"><p class="text-black"> {{ facture.reste }}</p></div> 
+        </div>
+
+        <div *ngIf="facture!=null">
+            <div class="box" [ngStyle]="{'display': 'flex'}">
+                <div class="col-md-3"><p class="text-black">Designation : </p></div> <div class="col-md-3"><p class="text-black"> {{ facture.designation }}</p></div> 
+            </div>
+            <div class="box" [ngStyle]="{'display': 'flex'}">
+            <div class="col-md-3"><p class="text-black">Voiture : </p></div> <div class="col-md-3"><p class="text-black"> {{ facture.modele +" "+  facture.matriculation}}</p></div> 
+            </div>
+            <div class="box" [ngStyle]="{'display': 'flex'}">
+                <div class="col-md-3"><p class="text-black">Date : </p></div> <div class="col-md-3"><p class="text-black"> {{ facture.dateFacture }}</p></div> 
+            </div>
+            <div class="box" [ngStyle]="{'display': 'flex'}">
+                <div class="col-md-3"><p class="text-black">Net à payer : </p></div> <div class="col-md-3"><p class="text-black"> {{ facture.montant }}</p></div> 
+            </div>
+            <div class="box" [ngStyle]="{'display': 'flex'}">
+                <div class="col-md-3"><p class="text-black">Montant payer : </p></div> <div class="col-md-3"><p class="text-black"> {{ facture.payer }}</p></div> 
+            </div>
+            <div class="box" [ngStyle]="{'display': 'flex'}">
+                <div class="col-md-3"><p class="text-black">Reste à payer : </p></div> <div class="col-md-3"><p class="text-black"> {{ facture.reste }}</p></div> 
+            </div>
         </div>
     </div>
     <hr>
-    <h5 class="text-center">Liste(s) paiement(s)</h5>
+    <h5 class="text-center">Paiement(s)</h5>
     <br>
     <div class="table-responsive">
         <table class="table table-hover">
           <thead>
             <tr>
+                <th>Date</th>
                 <th>Designation</th>
-                <th>Depot</th>
-                <th>Début</th>
-                <th>Fin</th>
-                <th>Etat</th>
-                <th>Facture</th>
+                <th>Montant</th>
             </tr>
           </thead>
-          <tbody>
-            <!-- <tr *ngFor="let rep of reparations | paginate: { itemsPerPage: 5, currentPage: p }" (click)="openDetails(rep._id)" >
+          <tbody *ngIf="facture!=null">
+            <tr  *ngFor="let rep of facture.paiement | paginate: { itemsPerPage: 5, currentPage: p } " (click)="openDetails(rep._id)" >
+                <td>{{ rep.date }}</td>
                 <td>{{ rep.designation }}</td>
-                <td>{{ rep.date_depot }}</td>
-                <td>{{ rep.datedebut }}</td>
-                <td>{{ rep.datefin }}</td>
-                <td>{{ rep.etat }}</td>
-                <td>{{ rep.idfacture }}</td>
-            </tr> -->
+                <td>{{ rep.montant }}</td>
+            </tr>
+            <tr  *ngIf="facture.paiement==null">
+                <br>
+                <b class="text-center">Aucun paiement.</b> 
+            </tr>
           </tbody>
-
+          <pagination-controls (pageChange)="p = $event"></pagination-controls>
         </table>
       </div>
     </app-card>

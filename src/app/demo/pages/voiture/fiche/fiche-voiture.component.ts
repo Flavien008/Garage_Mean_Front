@@ -25,6 +25,7 @@ export default class FicheVoitureCompoment implements OnInit{
     reparations :any;
     p : any ;
     token : string;
+    currentDate = new Date();
 
     constructor (private route: ActivatedRoute,private modalService: NgbModal,private dataService: DataService){}
     ngOnInit(): void {

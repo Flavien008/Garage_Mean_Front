@@ -21,6 +21,7 @@ export default class TermineComponent implements OnInit{
     form : any;
     token : string;
     estFinancier : boolean = false;
+    isLoading : boolean = false;
 
     constructor(private http: HttpClient,private router: Router,private modalService: NgbModal) {}
 
@@ -35,6 +36,7 @@ export default class TermineComponent implements OnInit{
 
 
     facturer(reparation:any){
+        this.isLoading = true;
         const headers = new HttpHeaders({
             'Authorization': 'Bearer ' + this.token
         });
@@ -47,11 +49,12 @@ export default class TermineComponent implements OnInit{
             "dateFacture": new Date().toLocaleDateString(),
             "montant" : reparation.total,
             "payer" : 0 ,
-            "reste" : 0
+            "reste" : reparation.total
         }
         var req1 = this.http.post(`${environment.baseUrl}/object`, data, { headers: headers }) 
         var req2 = this.http.get(`${environment.baseUrl}/reparation/facturer/${reparation._id}`, { headers: headers }) 
         forkJoin([req1,req2]).subscribe(results => {
+            this.isLoading = false;
             this.fetchData()
         })
     }

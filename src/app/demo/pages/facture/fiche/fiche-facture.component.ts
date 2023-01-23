@@ -52,7 +52,7 @@ export default class FicheFactureCompoment implements OnInit{
 
     openModal(data:any) {
         const modalRef = this.modalService.open(FormModalComponent);
-        modalRef.componentInstance.voiture = data;
+        modalRef.componentInstance.facture = data;
     }
 
     openDetails(data:string) {

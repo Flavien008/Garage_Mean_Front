@@ -5,12 +5,15 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { environment } from 'src/environments/environment';
 import { Router } from '@angular/router';
 import { DataService } from 'src/app/_services/data.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-form-modal',
+  standalone: true,
+  imports: [CommonModule],
   template: `
     <div class="modal-header">
-      <h4 class="modal-title">Saisie nouvelle réparation</h4>
+      <h4 class="modal-title">Saisie paiement</h4>
       <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
         <span aria-hidden="true">&times;</span>
       </button>
@@ -18,64 +21,92 @@ import { DataService } from 'src/app/_services/data.service';
     <div class="modal-body">
         <form>
             <div class="form-group">
-                <label for="name">Date depot</label>
+                <label for="name">Date paiement</label>
                 <br>
-                    <input type="date" class="form-control" id="name" #date>
+                    <input type="date" class="form-control" id="name" #date ng-model="currentDate">
             </div>
-                <div class="form-group">
+              <div class="form-group">
                 <label for="name">Designation</label>
                 <br>
                     <input type="text" class="form-control" id="designation" #designation>
             </div>
+            <div class="form-group">
+                <label for="name">Montant</label>
+                <br>
+                    <input type="number" class="form-control" id="montant" #montant>
+            </div>
+            <br>
+            <div class="form-group text-start mb-4">
+                    <div *ngIf="erreurMotant" class="alert alert-danger alert-dismissible fade show" role="alert">
+                        Montant superieur a la reste a payer !
+                    </div>
+            </div>
+
         </form>
     </div>
     <div class="modal-footer">
-      <button type="button" class="btn btn-outline-dark" (click)="submitForm(date.value,designation.value)">Valider</button>       
+    <button *ngIf="loading" class="btn btn-primary" type="button" disabled>
+        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+            Paiement en cours...
+    </button>
+      <button *ngIf="!loading" type="button" class="btn btn-outline-dark" (click)="payer(date.value,designation.value,montant.value)">Valider</button>       
     </div>
   `
 })
 
 export class FormModalComponent implements OnInit {
-    @Input() voiture: any;
+    @Input() facture: any;
     loading = false;
     error = false;
-
+    token : string;
+    erreurMotant : boolean = false;
 
     constructor(public activeModal: NgbActiveModal,private dataService: DataService) { }
 
     ngOnInit() {
+        if(localStorage.getItem('user')!=null){
+            this.token = JSON.parse(localStorage.getItem('user')).token;
+        }
     }
 
-    submitForm(date:string,designation:any) {
-            var data = {
-                "tablename":"reparation",
-                "idvoiture": this.voiture._id,
-                "designation": designation,
-                "date_depot": date,
-                "modele":this.voiture.modele,
-                "matriculation":this.voiture.matriculation,
-                "etat": "en attente"
-            }
-            console.log('tay'+data);
-            var token : string;
-            if(localStorage.getItem('user')!=null){
-            token = JSON.parse(localStorage.getItem('user')).token;
-        console.log(data)
-        let headers = new HttpHeaders({
-            'Authorization': 'Bearer ' + token
-        });
-    
-        if(data.designation!=''&&data.date_depot!=''){
-            this.error=false;
-            this.dataService.addData(`${environment.baseUrl}/object`,data, {headers: headers })
-            this.loading = false;
-            this.dataService.fetchData(`${environment.baseUrl}/reparation/${this.voiture._id}`,{headers})
-            }
-            else{
-                this.error=true;
-                this.loading = false;
-            }
-        }
-            this.activeModal.close();
+    payer(date:string,designation:any,montant:any) {
+        this.loading = true;
+        console.log(this.facture);
+        
+    var data = {
+        "id": this.facture._id,
+        "montant": Number(montant),
+        "designation": designation,
+        "date": date
     }
+    console.log('dataaa'+data);
+    let headers = new HttpHeaders({
+        'Authorization': 'Bearer ' + this.token
+    });
+
+    if(Number(montant)>this.facture.reste){
+        this.erreurMotant = true;
+        this.loading = false;
+    } else 
+    {
+
+        if(!this.erreurMotant){
+
+            if(data.designation!='' && data.montant!=0 && data.date!=''){
+                this.error=false;
+                this.dataService.addData(`${environment.baseUrl}/paiement`,data, {headers: headers })
+                this.loading = false;
+                this.dataService.fetchData(`${environment.baseUrl}/facture/${this.facture.idreparation}`,{headers});
+                }
+                else{
+                    this.error=true;
+                    this.loading = false;
+                }
+                this.activeModal.close();
+            }
+            this.erreurMotant = false;
+        }
+    }
+        
 }
+    

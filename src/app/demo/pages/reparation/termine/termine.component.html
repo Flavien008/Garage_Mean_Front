@@ -32,8 +32,12 @@
                         <td>{{ rep.etat }}</td>
                         <td>{{ rep.total }}</td>
                         <td *ngIf="estFinancier" >
-                            <button  *ngIf="rep.facturer==null" class="btn btn-primary" (click)="facturer(rep)">Facturer</button>
-                            <button  *ngIf="rep.facturer==1" class="btn btn-primary"  [routerLink]="['/facture/fiche']" [state]="rep" >Voir facture</button>
+                            <button *ngIf="isLoading" class="btn btn-primary" type="button" disabled>
+                              <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                                  facturation en cours...
+                            </button>
+                            <button  *ngIf="rep.facturer==null && isLoading==false" class="btn btn-primary" (click)="facturer(rep)">Facturer</button>
+                            <button  *ngIf="rep.facturer==1 && isLoading==false" class="btn btn-primary"  [routerLink]="['/facture/fiche']" [state]="rep" >Voir facture</button>
                         </td>
                   </tr>
                 </tbody>
