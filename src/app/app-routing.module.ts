@@ -41,6 +41,13 @@ const routes: Routes = [
           ),
       },
       {
+        path: 'journal',
+        loadChildren: () =>
+          import('./demo/pages/journal/journal.modules').then(
+            (m) => m.JournaModules
+          ),
+      },
+      {
         path: 'charts',
         loadChildren: () =>
           import('./demo/pages/core-chart/core-chart.module').then(

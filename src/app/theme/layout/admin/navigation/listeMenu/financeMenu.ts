@@ -59,7 +59,7 @@ export const FinanceMenu = [
               id: 'button',
               title: 'Saisie',
               type: 'item',
-              url: '/basic/button',
+              url: '/journal/liste',
             },
             {
               id: 'button',
