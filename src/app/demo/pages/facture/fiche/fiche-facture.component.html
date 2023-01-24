@@ -9,7 +9,7 @@
         <div class="box" [ngStyle]="{'display': 'flex', 'justify-content': 'space-between'}">
           <div class="box-part"><h5>Details facture</h5></div>
           <div class="box-part"></div>
-          <div class="box-part">
+          <div *ngIf="!isClient" class="box-part">
             <button class="btn btn-primary" (click)="openModal(facture)">Saisie paiement</button>
           </div>
         </div>

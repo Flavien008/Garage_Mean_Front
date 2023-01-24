@@ -25,6 +25,7 @@ export default class FicheFactureCompoment implements OnInit{
     facture :any;
     p : any ;
     token : string;
+    isClient : boolean = false;
 
     constructor (private route: ActivatedRoute,private modalService: NgbModal,private dataService: DataService){}
     ngOnInit(): void {
@@ -36,7 +37,9 @@ export default class FicheFactureCompoment implements OnInit{
         
         if(localStorage.getItem('user')!=null){
             this.token = JSON.parse(localStorage.getItem('user')).token;
+            if(JSON.parse(localStorage.getItem('user')).role=='client') this.isClient = true;
         }
+        
         this.fetchData(this.reparation._id,this.token);
         this.dataService.data$.subscribe(data => {
             this.facture = data;

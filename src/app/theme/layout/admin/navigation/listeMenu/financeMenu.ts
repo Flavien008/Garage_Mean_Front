@@ -29,7 +29,7 @@ export const FinanceMenu = [
           children: [
             {
               id: 'button',
-              title: 'Liste',
+              title: 'Terminer',
               type: 'item',
               url: '/reparation/termine',
             },
