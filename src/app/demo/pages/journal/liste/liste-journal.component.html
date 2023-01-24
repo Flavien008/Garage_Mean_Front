@@ -19,20 +19,17 @@
               <thead>
                 <tr>
                     <th>Designation</th>
-                    <th>Depot</th>
-                    <th>Début</th>
-                    <th>Fin</th>
-                    <th>Etat</th>
+                    <th>Date</th>
+                    <th>Entrer</th>
+                    <th>Sortie</th>
                 </tr>
               </thead>
-              <tbody *ngIf="reparations!=null">
-                <tr *ngFor="let rep of reparations | paginate: { itemsPerPage: 5, currentPage: p }" >
+              <tbody *ngIf="journal!=null">
+                <tr *ngFor="let rep of journal | paginate: { itemsPerPage: 5, currentPage: p }" >
                     <td>{{ rep.designation }}</td>
-                    <td>{{ rep.date_depot }}</td>
-                    <td>{{ rep.datedebut }}</td>
-                    <td>{{ rep.datefin }}</td>
-                    <td>{{ rep.etat }}</td>
-                    <td><button  *ngIf="rep.facturer==1" class="btn btn-primary"  [routerLink]="['/facture/fiche']" [state]="rep" >Etat de paiement</button></td>
+                    <td>{{ rep.date }}</td>
+                    <td>{{ rep.entree }}</td>
+                    <td>{{ rep.sortie }}</td>
                 </tr>
               </tbody>
               <pagination-controls (pageChange)="p = $event"></pagination-controls>

@@ -36,20 +36,6 @@ export const FinanceMenu = [
           ],
         },
         {
-          id: 'facture',
-          title: 'Facture',
-          type: 'collapse',
-          icon: 'feather icon-box',
-          children: [
-            {
-              id: 'button',
-              title: 'Liste',
-              type: 'item',
-              url: '/basic/button',
-            },
-          ],
-        },
-        {
           id: 'Journal',
           title: 'Journal de caisse',
           type: 'collapse',
@@ -57,15 +43,9 @@ export const FinanceMenu = [
           children: [
             {
               id: 'button',
-              title: 'Saisie',
-              type: 'item',
-              url: '/journal/liste',
-            },
-            {
-              id: 'button',
               title: 'Liste',
               type: 'item',
-              url: '/basic/button',
+              url: '/journal/liste',
             },
           ],
         },

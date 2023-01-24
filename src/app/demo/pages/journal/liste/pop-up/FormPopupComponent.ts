@@ -81,7 +81,7 @@ export class FormModalComponent implements OnInit {
             "tablename":"journal",
             "date": date,
             "designation": designation,
-            "entrer" : Number(entrer),
+            "entree" : Number(entrer),
             "sortie" : Number(sortie)
         }
         console.log('journal'+data);
@@ -94,7 +94,7 @@ export class FormModalComponent implements OnInit {
         this.error=false;
         this.dataService.addData(`${environment.baseUrl}/object`,data, {headers: headers })
         this.loading = false;
-        // this.dataService.fetchData(`${environment.baseUrl}/reparation/${this.voiture._id}`,{headers})
+        this.dataService.fetchData(`${environment.baseUrl}/journals`,{headers})
         this.activeModal.close();
         }
         else{
