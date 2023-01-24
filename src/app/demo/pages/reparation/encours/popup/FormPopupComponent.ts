@@ -31,8 +31,8 @@ import { environment } from 'src/environments/environment';
         <td> <input
                 type="range"
                 class="form-control-range d-block"
-                [(ngModel)]="currentValue"
-                min="0" max="100" value="10"
+                [(ngModel)]="liste.avancement"
+                min="0" max="100" value="20"
               /></td>
         
     </tr>
@@ -41,7 +41,7 @@ import { environment } from 'src/environments/environment';
 </table>
 </div>
 <div class="modal-footer">
-  <button type="button" class="btn btn-outline-dark" (click)= "affecter(reparation._id)" >Valider</button>       
+  <button type="button" class="btn btn-outline-dark" (click)= "getValue()" >Valider</button>       
 </div>
   `
 })
@@ -52,10 +52,17 @@ export class EncoursModalComponent implements OnInit {
   form = {
     etat : "terminé"
   };
-  currentValue ;
+
 
   getValue() {
-    console.log(this.currentValue);
+    this.reparation.details = this.listedetails;
+    console.log(this.listedetails);
+    var token : string;
+      console.log(this.id_reparation);
+      if(localStorage.getItem('user')!=null){
+        token = JSON.parse(localStorage.getItem('user')).token;
+    }
+    this.updateAvancement(token,this.reparation);
   }
  
   @Input() id_reparation: any;
@@ -80,9 +87,18 @@ export class EncoursModalComponent implements OnInit {
       this.http.get(`${environment.baseUrl}/reparationbyid/${this.id_reparation}`, {headers}).subscribe(data => {
         this.reparation = data;
         this.listedetails = this.reparation.details;
-        console.log(this.listedetails);
+
       });
 
+  }
+  updateAvancement(token,reparation){
+    const headers = new HttpHeaders({
+      'Authorization': 'Bearer ' + token
+    });
+    this.http.post(`${environment.baseUrl}/reparation/avancer/${this.id_reparation}`,reparation, {headers}) .subscribe(response => {
+      console.log(response);
+      this.activeModal.close();
+    });
   }
   affecter(id : string){
     console.log(id);
