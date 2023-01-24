@@ -24,17 +24,16 @@
                     <th>Début</th>
                     <th>Fin</th>
                     <th>Etat</th>
-                    <th>Facture</th>
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let rep of reparations | paginate: { itemsPerPage: 5, currentPage: p }" (click)="openDetails(rep._id)" >
-                    <td>{{ rep.designation }}</td>
+                <tr *ngFor="let rep of reparations | paginate: { itemsPerPage: 5, currentPage: p }" >
+                    <td (click)="openDetails(rep._id)">{{ rep.designation }}</td>
                     <td>{{ rep.date_depot }}</td>
                     <td>{{ rep.datedebut }}</td>
                     <td>{{ rep.datefin }}</td>
                     <td>{{ rep.etat }}</td>
-                    <td>{{ rep.idfacture }}</td>
+                    <td><button  *ngIf="rep.facturer==1" class="btn btn-primary"  [routerLink]="['/facture/fiche']" [state]="rep" >Etat de paiement</button></td>
                 </tr>
               </tbody>
               <pagination-controls (pageChange)="p = $event"></pagination-controls>

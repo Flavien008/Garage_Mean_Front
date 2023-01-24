@@ -10,6 +10,7 @@ import { environment } from 'src/environments/environment';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { DataService } from 'src/app/_services/data.service';
 import { map, Observable } from 'rxjs';
+import { Router, RouterModule } from '@angular/router';
 
 
 @Component({
@@ -17,7 +18,7 @@ import { map, Observable } from 'rxjs';
     standalone: true,
     templateUrl: './fiche-voiture.component.html',
     styleUrls: ['./fiche-voiture.component.scss'],
-    imports: [CommonModule, SharedModule,NgxPaginationModule]
+    imports: [CommonModule,RouterModule, SharedModule,NgxPaginationModule]
 })
 export default class FicheVoitureCompoment implements OnInit{
     state$: Observable<object>;
