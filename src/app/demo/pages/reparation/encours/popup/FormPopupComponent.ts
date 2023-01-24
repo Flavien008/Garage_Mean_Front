@@ -33,7 +33,7 @@ import { environment } from 'src/environments/environment';
                 class="form-control-range d-block"
                 [(ngModel)]="liste.avancement"
                 min="0" max="100" value="20"
-              /></td>
+              /> {{liste.avancement}}</td>
         
     </tr>
 
@@ -49,6 +49,7 @@ import { environment } from 'src/environments/environment';
 export class EncoursModalComponent implements OnInit {
   listedetails : any;
   reparation : any;
+  totalavancement = 0;
   form = {
     etat : "terminé"
   };
@@ -63,6 +64,16 @@ export class EncoursModalComponent implements OnInit {
         token = JSON.parse(localStorage.getItem('user')).token;
     }
     this.updateAvancement(token,this.reparation);
+
+    for (let item of this.listedetails) {
+      console.log(item.avancement);
+      this.totalavancement = this.totalavancement + item.avancement / this.listedetails.length;
+    }
+    console.log("total ehhh   "+this.totalavancement);
+    if(this.totalavancement ==100){
+      this.affecter(this.id_reparation);
+      console.log("affecté tsara ral")
+    }
   }
  
   @Input() id_reparation: any;

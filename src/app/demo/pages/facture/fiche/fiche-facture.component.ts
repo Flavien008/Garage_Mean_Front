@@ -28,7 +28,7 @@ export default class FicheFactureCompoment implements OnInit{
     token : string;
     isClient : boolean = false;
 
-    constructor (private route: ActivatedRoute,private modalService: NgbModal,private dataService: DataService,private factureService: FactureService){}
+    constructor (private route: ActivatedRoute,private modalService: NgbModal,private dataService: DataService){} 
     ngOnInit(): void {
         this.state$ = this.route.paramMap.pipe(map(() => window.history.state))
         this.state$.subscribe(data => {
@@ -42,7 +42,7 @@ export default class FicheFactureCompoment implements OnInit{
         }
         
         this.fetchData(this.reparation._id,this.token);
-        this.factureService.data$.subscribe(data => {
+        this.dataService.data$.subscribe(data => {
             this.facture = data;
           });
     }
@@ -51,7 +51,7 @@ export default class FicheFactureCompoment implements OnInit{
       const headers = new HttpHeaders({
           'Authorization': 'Bearer ' + token
     });
-        this.factureService.fetchData(`${environment.baseUrl}/facture/${idReparation}`,{headers});
+        this.dataService.fetchData(`${environment.baseUrl}/facture/${idReparation}`,{headers});
     }
 
     openModal(data:any) {

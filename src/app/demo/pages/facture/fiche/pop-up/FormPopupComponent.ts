@@ -62,7 +62,7 @@ export class FormModalComponent implements OnInit {
     token : string;
     erreurMotant : boolean = false;
 
-    constructor(public activeModal: NgbActiveModal,private factureService: FactureService,private dataService: DataService,private router :Router) { }
+    constructor(public activeModal: NgbActiveModal,private dataService: DataService,private router :Router) { }
 
     ngOnInit() {
         if(localStorage.getItem('user')!=null){
@@ -103,7 +103,7 @@ export class FormModalComponent implements OnInit {
                     this.error=true;
                     this.loading = false;
                 }
-                this.factureService.fetchData(`${environment.baseUrl}/facture/${this.facture.idreparation}`,{headers});
+                this.dataService.fetchData(`${environment.baseUrl}/facture/${this.facture.idreparation}`,{headers});
                 this.router.navigate(['/reparation/termine']);
                 this.activeModal.close();
             }
