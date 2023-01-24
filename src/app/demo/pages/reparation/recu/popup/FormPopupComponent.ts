@@ -116,7 +116,7 @@ export class RecuModalComponent implements OnInit {
         let headers = new HttpHeaders({
         'Authorization': 'Bearer ' + token
         });
-            var req1 = this.http.post(`${environment.baseUrl}/reparation/prix`,{"id" : this.id_reparation,"prix": this.total},{ headers: headers });
+            var req1 = this.http.post(`${environment.baseUrl}/reparation/prix`,{"id" : this.id_reparation},{ headers: headers });
             var req2 = this.http.post(`${environment.baseUrl}/updateetat/${id}`,this.etat,{ headers: headers });
             //exec multiple req
             forkJoin([req1,req2]).subscribe(results => {
