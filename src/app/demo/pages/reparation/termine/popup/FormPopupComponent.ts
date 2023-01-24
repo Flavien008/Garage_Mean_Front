@@ -27,7 +27,7 @@ import { environment } from 'src/environments/environment';
     <tr *ngFor="let liste of listedetails">
         <td>{{ liste.designation }}</td>
         <td>{{ liste.prix }}</td>    
-        <td><ngb-progressbar type="text-primary" height="7px" [value]="liste.avancement"></ngb-progressbar></td>
+        <td>{{liste.avancement+" %"}}<ngb-progressbar type="text-primary" height="7px" [value]="liste.avancement"></ngb-progressbar></td>
     </tr>
 
 </tbody>
