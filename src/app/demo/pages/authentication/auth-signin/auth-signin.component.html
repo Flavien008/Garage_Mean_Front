@@ -24,7 +24,13 @@
                         Veuillez vos informations !
                 </div>
                 </div>
-                <button class="btn btn-primary mb-4">Login</button>
+                <div *ngIf="isLoading" class="text-center">
+                  <button class="btn btn-primary" type="button" disabled>
+                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                    Login process...
+                  </button>
+                </div>
+                <button *ngIf="!isLoading" class="btn btn-primary mb-4">Login</button>
             </form>
             <p class="mb-0 text-muted">
               Don’t have an account? <a [routerLink]="['/auth/signup']">Sign up</a>

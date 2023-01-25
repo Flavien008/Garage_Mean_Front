@@ -18,6 +18,7 @@ export default class AuthSigninComponent implements OnInit{
     defaultPwd : string = "1234";
     loginError : boolean = false
     role : any;
+    isLoading : boolean = false;
 
     constructor(private authService : AuthService,private router: Router){}
 
@@ -33,6 +34,7 @@ export default class AuthSigninComponent implements OnInit{
     }
 
     async loginProcess(){
+        this.isLoading = true;
         if(this.loginGroup.valid){
             await this.authService.login(this.loginGroup.value)
             .subscribe(
@@ -53,8 +55,10 @@ export default class AuthSigninComponent implements OnInit{
                         console.log(JSON.parse(localStorage.getItem('user')).role);
                         this.router.navigate(['/reparation/termine'])
                     }
+                this.isLoading = false;
                 },
                 error => {
+                    this.isLoading = false;
                     if(error.status == 401) {
                         this.loginError = true;
                         console.log('Vérifier vos informations ! ');
