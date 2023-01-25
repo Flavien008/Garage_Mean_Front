@@ -3,13 +3,13 @@
         <app-card [hidHeader]="true">
             <div class="row d-flex align-items-center">
                 <div class="col-5 mb-4">
-                    <input type="date" class="form-control" [value]="date | date:'yyyy-MM-dd'">
+                    <input type="date" class="form-control" [value]="date | date:'yyyy-MM-dd'" #bend1>
                 </div>
                 <div class="col-5 mb-4">
-                    <input type="date" class="form-control" [value]="date | date:'yyyy-MM-dd'">
+                    <input type="date" class="form-control" [value]="date | date:'yyyy-MM-dd'" #bend2>
                 </div>
                 <div class="col-2 mb-4">
-                    <button class="btn btn-primary">voir</button>
+                    <button class="btn btn-primary" (click)="changeBen(bend1.value,bend2.value)">voir</button>
                 </div>
             </div>
             <div class="row d-flex align-items-center">
@@ -18,7 +18,7 @@
                 </div>
                 <div class="col-6">
                     <h3 class="f-w-300 d-flex align-items-center m-b-0">
-                        <i class="feather icon-arrow-up text-c-green f-30 m-r-10"></i>$ 50000
+                        <i class="feather icon-arrow-up text-c-green f-30 m-r-10"></i>$ {{ ben.benefice }}
                     </h3>
                 </div>
               
@@ -39,14 +39,14 @@
                     <h6 class="mb-4">Daily</h6>
                 </div>
                 <div class="col-6 text-end mb-4">
-                    <input type="date" class="form-control" [value]="date | date:'yyyy-MM-dd'">
+                    <input type="date" class="form-control" [value]="date | date:'yyyy-MM-dd'" #today (change)="daily(today.value)">
                 </div>
             </div>
         
             <div class="row d-flex align-items-center">
                 <div class="col-9">
                 <h3 class="f-w-300 d-flex align-items-center m-b-0">
-                    <i class="feather icon-arrow-up text-c-green f-30 m-r-10"></i>$ 5000
+                    <i class="feather icon-arrow-up text-c-green f-30 m-r-10"></i>$ {{ journalier.entree }}
                 </h3>
                 </div>
                 <div class="col-3 text-end">
