@@ -13,19 +13,47 @@ import '../../../assets/charts/amchart/ammap.min.js';
 import '../../../assets/charts/amchart/usaLow.js';
 import '../../../assets/charts/amchart/radar.js';
 import '../../../assets/charts/amchart/worldLow.js';
+import '../../../../node_modules/morris.js/morris.js';
+
 
 import dataJson from 'src/fake-data/map_data'
 import mapColor from 'src/fake-data/map-color-data.json'
+import { MorrisJsModule } from 'angular-morris-js';
+
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule, SharedModule],
+  imports: [CommonModule, SharedModule,MorrisJsModule],
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.scss'],
+  styleUrls: ['./dashboard.component.scss', './crt-morris.component.scss',
+  '../../../../node_modules/morris.js/morris.css'],
 })
 export default class DashboardComponent implements OnInit {
+  lineSmoothMorrisOption: any;
+  lineSmoothMorrisData: any;
+
   ngOnInit() {
+    this.lineSmoothMorrisData = [
+      { y: '2006', a: 100, b: 90 },
+      { y: '2007', a: 75, b: 65 },
+      { y: '2008', a: 50, b: 40 },
+      { y: '2009', a: 75, b: 65 },
+      { y: '2010', a: 50, b: 40 },
+      { y: '2011', a: 75, b: 65 },
+      { y: '2012', a: 100, b: 90 },
+    ];
+
+    this.lineSmoothMorrisOption = {
+      xkey: 'y',
+      redraw: true,
+      resize: true,
+      ykeys: ['a', 'b'],
+      hideHover: 'auto',
+      responsive: true,
+      labels: ['Entrer', 'Sortie'],
+      lineColors: ['#1de9b6', '#A389D4'],
+    };
     setTimeout(() => {
       const latlong = dataJson;  
 
