@@ -71,6 +71,7 @@ export class EncoursModalComponent implements OnInit {
     }
     console.log("total ehhh   "+this.totalavancement);
     if(this.totalavancement ==100){
+      this.sendMail(token);
       this.affecter(this.id_reparation);
       console.log("affecté tsara ral")
     }
@@ -82,6 +83,8 @@ export class EncoursModalComponent implements OnInit {
 
 
     constructor(public activeModal: NgbActiveModal,private http: HttpClient,private router: Router) { }
+
+
 
     ngOnInit() {
       var token : string;
@@ -101,6 +104,21 @@ export class EncoursModalComponent implements OnInit {
 
       });
 
+  }
+  sendMail(token){
+    const datamail = {
+      from : "garage@",
+      to : this.reparation.mailclient,
+      subject : "Reparation de votre voiture",
+      text : "Bonjour, la reparation de votre voiture: "+this.reparation.modele+" immatriculé: "+this.reparation.matriculation + " est achevé."
+    };
+    const headers = new HttpHeaders({
+      'Authorization': 'Bearer ' + token
+    });
+    this.http.post(`${environment.baseUrl}/sendmail`,datamail, {headers}) .subscribe(response => {
+      console.log(response);
+      this.activeModal.close();
+    });
   }
   updateAvancement(token,reparation){
     const headers = new HttpHeaders({

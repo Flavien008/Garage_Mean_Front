@@ -71,6 +71,9 @@ export class RecuModalComponent implements OnInit {
   }
 
   total : number = 0;
+
+
+
  
   @Input() id_reparation: any;
     loading = false;

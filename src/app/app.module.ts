@@ -29,6 +29,7 @@ import { RecuModalComponent } from './demo/pages/reparation/recu/popup/FormPopup
 import { EncoursModalComponent } from './demo/pages/reparation/encours/popup/FormPopupComponent';
 import { TermineModalComponent } from './demo/pages/reparation/termine/popup/FormPopupComponent';
 
+
 @NgModule({
     declarations: [
         AppComponent,

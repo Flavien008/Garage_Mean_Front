@@ -47,15 +47,19 @@ export class FormModalComponent implements OnInit {
     }
 
     submitForm(date:string,designation:any) {
+      if(localStorage.getItem('user')!=null){
             var data = {
                 "tablename":"reparation",
                 "idvoiture": this.voiture._id,
+                "mailclient": JSON.parse(localStorage.getItem('user')).mail,
+                "nomclient": JSON.parse(localStorage.getItem('user')).nom,
                 "designation": designation,
                 "date_depot": date,
                 "modele":this.voiture.modele,
                 "matriculation":this.voiture.matriculation,
                 "etat": "en attente"
             }
+          }
             console.log('tay'+data);
             var token : string;
             if(localStorage.getItem('user')!=null){
@@ -64,6 +68,8 @@ export class FormModalComponent implements OnInit {
         let headers = new HttpHeaders({
             'Authorization': 'Bearer ' + token
         });
+        
+     
     
         if(data.designation!=''&&data.date_depot!=''){
             this.error=false;
@@ -77,5 +83,6 @@ export class FormModalComponent implements OnInit {
             }
         }
             this.activeModal.close();
+        
     }
 }

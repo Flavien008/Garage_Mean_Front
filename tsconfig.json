@@ -20,6 +20,17 @@
     "importHelpers": true,
     "target": "es2020",
     "module": "es2020",
+    "paths": {
+      "stream": [
+        "node_modules/stream-browserify/index.js"
+      ],
+      "fs": [
+        "node_modules/fs-extra/index.js"
+      ],
+      "path": [
+        "node_modules/path-browserify/index.js"
+      ]
+    },
     "lib": [
       "es2020",
       "dom"

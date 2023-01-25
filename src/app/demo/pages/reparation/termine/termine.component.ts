@@ -46,6 +46,7 @@ export default class TermineComponent implements OnInit{
             "modele":  reparation.modele,
             "matriculation": reparation.matriculation,
             "idreparation": reparation._id,
+            "nomclient" : reparation.nomclient,
             "dateFacture": new Date().toLocaleDateString(),
             "montant" : reparation.total,
             "payer" : 0 ,
