@@ -32,8 +32,25 @@ import { MorrisJsModule } from 'angular-morris-js';
 export default class DashboardComponent implements OnInit {
   lineSmoothMorrisOption: any;
   lineSmoothMorrisData: any;
+  date = new Date();
+  currentMonth: string;
+  startDate: Date;
+  endDate: Date;
+
+
+  constructor() {}
+
 
   ngOnInit() {
+    const year = this.date.getFullYear();
+    const mm = this.date.getMonth();
+    const month = ('0' + (this.date.getMonth() + 1)).slice(-2);
+    this.currentMonth = `${year}-${month}`;
+    this.startDate = new Date(year, mm, 1);
+    this.endDate = new Date(year, mm + 1, 0);
+    console.log(this.currentMonth);
+    
+   
     this.lineSmoothMorrisData = [
       { y: '2006', a: 100, b: 90 },
       { y: '2007', a: 75, b: 65 },

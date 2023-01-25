@@ -53,7 +53,7 @@ export default class AuthSigninComponent implements OnInit{
                     }
                     if(JSON.parse(localStorage.getItem('user')).role == "finance"){
                         console.log(JSON.parse(localStorage.getItem('user')).role);
-                        this.router.navigate(['/reparation/termine'])
+                        this.router.navigate(['/dashboard'])
                     }
                 this.isLoading = false;
                 },
