@@ -15,6 +15,7 @@ import { RouterModule } from '@angular/router';
 export default class BasicElementsComponent implements OnInit{
     user : any ;
     voitures : any ;
+    loading : boolean = true;
 
     constructor(private http: HttpClient) {}
 
@@ -36,6 +37,7 @@ export default class BasicElementsComponent implements OnInit{
     this.http.get(`${environment.baseUrl}/utilisateur/${id}`, {headers}).subscribe(data => {
         this.user = data;
         this.voitures = this.user.voiture;
+        this.loading = false;
         console.log(this.voitures)
     });
     }

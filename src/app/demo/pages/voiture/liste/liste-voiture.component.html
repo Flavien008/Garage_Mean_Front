@@ -11,7 +11,6 @@
 		</div>
 	</div>
 
-
 		<div class="{{ voiture.design }} col-xl-4" *ngFor="let voiture of voitures">
 			<app-card [hidHeader]="true">
 				<div class="col-9">
@@ -39,13 +38,28 @@
 			</app-card>
 		</div>
 </div>
-<div class="row" *ngIf="voitures == null">
+<div class="row" *ngIf="voitures == null && loading == false">
 	<div class="col-sm-12">
 		<div class="card">
 			<div class="card-block">
 				<div class="row justify-content-center">
 					<div class="col-sm-12">
 						<b class="text-center">Vous n'avez pas encore ajouter de voitures.</b>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="row" *ngIf="voitures == null && loading == true">
+	<div class="col-sm-12">
+		<div class="card">
+			<div class="card-block">
+				<div class="row justify-content-center">
+					<div class="col-sm-12">
+							<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+								Chargement en cours de vos voitures...
 					</div>
 				</div>
 			</div>
