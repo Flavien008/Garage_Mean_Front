@@ -49,7 +49,7 @@
           </thead>
           <tbody *ngIf="facture!=null">
             <tr  *ngFor="let rep of facture.paiement | paginate: { itemsPerPage: 5, currentPage: p } " (click)="openDetails(rep._id)" >
-                <td>{{ rep.date }}</td>
+                <td>{{ rep.date | date:'dd-MM-YYYY' }}</td>
                 <td>{{ rep.designation }}</td>
                 <td>{{ rep.montant }}</td>
             </tr>

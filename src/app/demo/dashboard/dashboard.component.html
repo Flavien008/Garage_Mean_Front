@@ -23,74 +23,38 @@
                 </div>
               
             </div>
-            <div class="m-t-30">
-                <ngb-progressbar
-                type="text-primary"
-                height="7px"
-                [value]="50"
-                ></ngb-progressbar>
-            </div>
         </app-card>
     </div>
-    <div class="col-md-6 col-xl-4">
+    <div class="col-md-8 col-xl-4">
         <app-card [hidHeader]="true">
+             <div class="row d-flex align-items-center">
+                <div class="col-5 mb-4">
+                    <input type="date" class="form-control" [value]="date | date:'yyyy-MM-dd'" #aff1>
+                </div>
+                  <div class="col-5 text-end mb-4">
+                      <input type="date" class="form-control" [value]="date | date:'yyyy-MM-dd'" #aff2>
+                  </div>
+                  <div class="col-2 mb-4">
+                    <button class="btn btn-primary" (click)="chiffreAffaire(aff1.value,aff2.value)">voir</button>
+                </div>
+
+             </div>
+
             <div class="row d-flex align-items-center">
-                <div class="col-6">
-                    <h6 class="mb-4">Daily</h6>
+                <div class="col-4">
+                    <h6 class="mb-4">Chiffre d'affaire</h6>
                 </div>
-                <div class="col-6 text-end mb-4">
-                    <input type="date" class="form-control" [value]="date | date:'yyyy-MM-dd'" #today (change)="daily(today.value)">
-                </div>
+                <div class="col-8">
+                    <h3 class="f-w-300 d-flex align-items-center m-b-0">
+                        <i class="feather icon-arrow-up text-c-green f-30 m-r-10"></i>$ {{ chiffre.entree }}
+                    </h3>
+                    </div>
             </div>
         
-            <div class="row d-flex align-items-center">
-                <div class="col-9">
-                <h3 class="f-w-300 d-flex align-items-center m-b-0">
-                    <i class="feather icon-arrow-up text-c-green f-30 m-r-10"></i>$ {{ journalier.entree }}
-                </h3>
-                </div>
-                <div class="col-3 text-end">
-                <p class="m-b-0">50 %</p>
-                </div>
-            </div>
-            <div class="m-t-30">
-                <ngb-progressbar
-                type="text-primary"
-                height="7px"
-                [value]="50"
-                ></ngb-progressbar>
-            </div>
+           
         </app-card>
     </div>
-    <div class="col-md-6 col-xl-4">
-        <app-card [hidHeader]="true">
-            <div class="row d-flex align-items-center">
-                <div class="col-6">
-                    <h6 class="mb-4">Monthly</h6>
-                </div>
-                <div class="col-6 text-end mb-4">
-                    <input type="month" class="form-control" [value]="currentMonth">
-                </div>
-            </div>
-            <div class="row d-flex align-items-center">
-                <div class="col-9">
-                    <h3 class="f-w-300 d-flex align-items-center m-b-0">
-                        <i class="feather icon-arrow-up text-c-green f-30 m-r-10"></i>$ 50000
-                    </h3>
-                </div>
-                <div class="col-3 text-end">
-                    <p class="m-b-0">50 %</p>
-                </div>
-            </div>
-            <div class="m-t-30">
-                <ngb-progressbar
-                type="text-primary"
-                height="7px"
-                [value]="50"
-                ></ngb-progressbar>
-            </div>
-        </app-card>
-    </div>
+
     
   <div class="col-xl-12 col-md-12">
     <app-card cardTitle="Mouvement de caisse" [options]="false">

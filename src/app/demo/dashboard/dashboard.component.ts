@@ -38,7 +38,7 @@ export default class DashboardComponent implements OnInit {
     endDate: Date;
     token : string ;
     ben : any = 0;
-    journalier : any = 0;
+    chiffre : any = 0;
 
   constructor(private http: HttpClient) {}
 
@@ -56,7 +56,7 @@ export default class DashboardComponent implements OnInit {
             this.ben = response;
         });
         this.benefice(this.date, this.date).then(response => {
-            this.journalier = response;
+            this.chiffre = response;
         });
     
         this.lineSmoothMorrisData = [
@@ -81,10 +81,10 @@ export default class DashboardComponent implements OnInit {
         };
     }
 
-    daily(date:any){
-        this.benefice(date, date).then(response => {
-            this.journalier = response;
-            console.log('dailu'+this.journalier);
+    chiffreAffaire(date:any,date2:any){
+        this.benefice(date, date2).then(response => {
+            this.chiffre = response;
+            console.log('ciffre affaire'+this.chiffre);
             
         });
         

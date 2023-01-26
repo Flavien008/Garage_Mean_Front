@@ -27,7 +27,7 @@
               <tbody *ngIf="journal!=null">
                 <tr *ngFor="let rep of journal | paginate: { itemsPerPage: 5, currentPage: p }" >
                     <td>{{ rep.designation }}</td>
-                    <td>{{ rep.date }}</td>
+                    <td>{{ rep.date | date:'dd-MM-YYYY' }}</td>
                     <td>{{ rep.entree }}</td>
                     <td>{{ rep.sortie }}</td>
                 </tr>
