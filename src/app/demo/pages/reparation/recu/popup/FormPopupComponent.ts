@@ -72,10 +72,6 @@ export class RecuModalComponent implements OnInit {
   }
 
   total : number = 0;
-
-
-
-
  
   @Input() id_reparation: any;
     loading = false;
@@ -109,6 +105,14 @@ export class RecuModalComponent implements OnInit {
       });
 
     }
+    updateDatedebut(token,etat){
+      const headers = new HttpHeaders({
+        'Authorization': 'Bearer ' + token
+      });
+      this.http.post(`${environment.baseUrl}/updatedatedebut/${this.id_reparation}`,etat, {headers}) .subscribe(response => {
+        console.log(response);
+      });
+    }
 
     affecter(id : string){
         var token : string;
@@ -127,6 +131,7 @@ export class RecuModalComponent implements OnInit {
             forkJoin([req1,req2]).subscribe(results => {
                 console.log('manoloo prix');
             })
+            this.updateDatedebut(token,this.etat);
             this.router.navigate(['/reparation/encours']);
         this.activeModal.close();
     }

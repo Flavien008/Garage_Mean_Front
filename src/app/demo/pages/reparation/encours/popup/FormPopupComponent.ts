@@ -137,7 +137,6 @@ export class EncoursModalComponent implements OnInit {
     });
     this.http.post(`${environment.baseUrl}/updatedatefin/${this.id_reparation}`,etat, {headers}) .subscribe(response => {
       console.log(response);
-      this.activeModal.close();
     });
   }
   affecter(id : string){
