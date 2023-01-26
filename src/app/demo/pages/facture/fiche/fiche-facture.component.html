@@ -19,7 +19,10 @@
                 <div class="col-md-3"><p class="text-black">Designation : </p></div> <div class="col-md-3"><p class="text-black"> {{ facture.designation }}</p></div> 
             </div>
             <div class="box" [ngStyle]="{'display': 'flex'}">
-            <div class="col-md-3"><p class="text-black">Voiture : </p></div> <div class="col-md-3"><p class="text-black"> {{ facture.modele +" "+  facture.matriculation}}</p></div> 
+              <div class="col-md-3"><p class="text-black">Voiture : </p></div> <div class="col-md-3"><p class="text-black"> {{ facture.modele +" "+  facture.matriculation}}</p></div> 
+            </div>
+            <div class="box" [ngStyle]="{'display': 'flex'}">
+              <div class="col-md-3"><p class="text-black">Nom du client: </p></div> <div class="col-md-3"><p class="text-black"> {{ facture.nomclient}}</p></div> 
             </div>
             <div class="box" [ngStyle]="{'display': 'flex'}">
                 <div class="col-md-3"><p class="text-black">Date : </p></div> <div class="col-md-3"><p class="text-black"> {{ facture.dateFacture }}</p></div> 
