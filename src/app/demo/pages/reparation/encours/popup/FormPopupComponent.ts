@@ -51,7 +51,8 @@ export class EncoursModalComponent implements OnInit {
   reparation : any;
   totalavancement = 0;
   form = {
-    etat : "terminé"
+    etat : "terminé",
+    dateterminaison : new Date().toLocaleString('fr-FR', { timeZone: 'Africa/Nairobi' })
   };
 
 
@@ -73,6 +74,7 @@ export class EncoursModalComponent implements OnInit {
     if(this.totalavancement ==100){
       this.sendMail(token);
       this.affecter(this.id_reparation);
+      this.updateDatefin(token,this.form);
       console.log("affecté tsara ral")
     }
   }
@@ -125,6 +127,15 @@ export class EncoursModalComponent implements OnInit {
       'Authorization': 'Bearer ' + token
     });
     this.http.post(`${environment.baseUrl}/reparation/avancer/${this.id_reparation}`,reparation, {headers}) .subscribe(response => {
+      console.log(response);
+      this.activeModal.close();
+    });
+  }
+  updateDatefin(token,etat){
+    const headers = new HttpHeaders({
+      'Authorization': 'Bearer ' + token
+    });
+    this.http.post(`${environment.baseUrl}/updatedatefin/${this.id_reparation}`,etat, {headers}) .subscribe(response => {
       console.log(response);
       this.activeModal.close();
     });

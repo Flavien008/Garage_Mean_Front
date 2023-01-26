@@ -67,10 +67,12 @@ export class RecuModalComponent implements OnInit {
   listedetails : any;
   reparation : any;
   etat = {
-    "etat" : "en cours"
+    etat : "en cours",
+    datedebutreparation : new Date().toLocaleString('fr-FR', { timeZone: 'Africa/Nairobi' })
   }
 
   total : number = 0;
+
 
 
 
