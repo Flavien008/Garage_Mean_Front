@@ -39,6 +39,7 @@ export default class DashboardComponent implements OnInit {
     token : string ;
     ben : any = 0;
     chiffre : any = 0;
+    stat : any ;
 
   constructor(private http: HttpClient) {}
 
@@ -53,46 +54,45 @@ export default class DashboardComponent implements OnInit {
         this.endDate = new Date(year, mm + 1, 0);
         console.log(this.currentMonth);
         this.benefice(this.date, this.date).then(response => {
-            this.ben = response;
+            this.ben = response[0];
         });
         this.benefice(this.date, this.date).then(response => {
-            this.chiffre = response;
+            this.chiffre = response[0];
         });
-    
-        this.lineSmoothMorrisData = [
-        { y: '2006', a: 100, b: 90 },
-        { y: '2007', a: 75, b: 65 },
-        { y: '2008', a: 50, b: 40 },
-        { y: '2009', a: 75, b: 65 },
-        { y: '2010', a: 50, b: 40 },
-        { y: '2011', a: 75, b: 65 },
-        { y: '2012', a: 100, b: 90 },
-        ];
+
+        this.statistic(this.startDate, this.endDate).then(response => {
+            console.log(response);
+            this.lineSmoothMorrisData = response;
+        });
 
         this.lineSmoothMorrisOption = {
-        xkey: 'y',
-        redraw: true,
-        resize: true,
-        ykeys: ['a', 'b'],
-        hideHover: 'auto',
-        responsive: true,
-        labels: ['Entrer', 'Sortie'],
-        lineColors: ['#1de9b6', '#A389D4'],
+            xkey: '_id',
+            redraw: true,
+            resize: true,
+            ykeys: ['entree', 'sortie','benefice'],
+            hideHover: 'auto',
+            responsive: true,
+            labels: ['Entrer', 'Sortie','Benefice'],
+            lineColors: ['#1de9b6', '#A389D4','#2596be'],
         };
+    }
+
+    filtreStat(date:any,date2:any){
+        this.statistic(date,date2).then(response => {
+            this.lineSmoothMorrisData = response;
+        });
     }
 
     chiffreAffaire(date:any,date2:any){
         this.benefice(date, date2).then(response => {
-            this.chiffre = response;
-            console.log('ciffre affaire'+this.chiffre);
-            
+            this.chiffre = response[0];
         });
         
     }
 
     changeBen(d1:any,d2:any) {
         this.benefice(d1, d2).then(response => {
-            this.ben = response;
+            this.ben = response[0];
         });
     }
     
@@ -107,6 +107,25 @@ export default class DashboardComponent implements OnInit {
         };
     
         return this.http.post(`${environment.baseUrl}/benefice`, data, httpOptions)
+            .pipe(
+                tap((response) => console.log(response)),
+                catchError((error) => {
+                    console.log(error);
+                    return of(error);
+                })
+            ).toPromise();
+    }
+
+    async statistic(d1: any, d2: any) {
+        const data = { debut: d1, fin: d2 };
+        const httpOptions = {
+            headers: new HttpHeaders({
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + this.token
+            })
+        };
+    
+        return this.http.post(`${environment.baseUrl}/statistic`, data, httpOptions)
             .pipe(
                 tap((response) => console.log(response)),
                 catchError((error) => {
