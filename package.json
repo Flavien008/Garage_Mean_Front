@@ -26,6 +26,7 @@
     "@popperjs/core": "^2.11.6",
     "angular-morris-js": "^2.0.1",
     "bootstrap": "^5.2.3",
+    "date-fns": "^2.29.3",
     "fs-extra": "^11.1.0",
     "jquery": "^3.6.1",
     "mailgun-js": "^0.22.0",

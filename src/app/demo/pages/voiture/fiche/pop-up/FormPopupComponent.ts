@@ -5,6 +5,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { environment } from 'src/environments/environment';
 import { Router } from '@angular/router';
 import { DataService } from 'src/app/_services/data.service';
+import { format } from 'date-fns';
 
 @Component({
   selector: 'app-form-modal',
@@ -54,7 +55,7 @@ export class FormModalComponent implements OnInit {
                 "mailclient": JSON.parse(localStorage.getItem('user')).mail,
                 "nomclient": JSON.parse(localStorage.getItem('user')).nom,
                 "designation": designation,
-                "date_depot": date,
+                "date_depot":  format(new Date(date), 'dd/MM/yyyy'),
                 "modele":this.voiture.modele,
                 "matriculation":this.voiture.matriculation,
                 "etat": "en attente"
