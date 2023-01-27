@@ -39,6 +39,7 @@ export default class DashboardComponent implements OnInit {
     token : string ;
     ben : any = 0;
     chiffre : any = 0;
+    moyenne : any;
     stat : any ;
 
   constructor(private http: HttpClient) {}
@@ -64,6 +65,8 @@ export default class DashboardComponent implements OnInit {
             console.log(response);
             this.lineSmoothMorrisData = response;
         });
+
+        this.fetchData();
 
         this.lineSmoothMorrisOption = {
             xkey: '_id',
@@ -115,6 +118,16 @@ export default class DashboardComponent implements OnInit {
                 })
             ).toPromise();
     }
+
+    async fetchData() {
+        const headers = new HttpHeaders({
+            'Authorization': 'Bearer ' + this.token
+        });
+        this.http.get(`${environment.baseUrl}/moyennevoiture`, {headers}).subscribe(data => {
+            this.moyenne = data;
+            console.log(this.moyenne)
+        });
+        }
 
     async statistic(d1: any, d2: any) {
         const data = { debut: d1, fin: d2 };

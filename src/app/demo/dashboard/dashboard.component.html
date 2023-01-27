@@ -54,6 +54,27 @@
            
         </app-card>
     </div>
+    <div class="col-md-8 col-xl-4">
+      <app-card [hidHeader]="true">
+           <div class="row d-flex align-items-center">
+             
+  
+           </div>
+  
+          <div class="row d-flex align-items-center">
+              <div class="col-4">
+                  <h6 class="mb-4">Temps moyenne de reparation d'une voiture</h6>
+              </div>
+              <div class="col-8">
+                  <h3 class="f-w-300 d-flex align-items-center m-b-0">
+                      <i class="feather icon-arrow-up text-c-green f-30 m-r-10"></i> {{ moyenne.reparationmoyenne }}
+                  </h3>
+                  </div>
+          </div>
+      
+         
+      </app-card>
+  </div>
 
     
   <div class="col-xl-12 col-md-12">
@@ -80,6 +101,8 @@
         ></div>
       </app-card>
   </div>
+
+  
 
   <!-- <div class="{{ list.design }} col-xl-4" *ngFor="let list of social_card">
     <div class="card card-social">
