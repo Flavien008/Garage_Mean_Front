@@ -17,7 +17,7 @@
                     <h6>Bénefice</h6>
                 </div>
                 <div class="col-6">
-                    <h3 class="f-w-300 d-flex align-items-center m-b-0">
+                    <h3 class="f-w-300 d-flex align-items-center m-b-0" *ngIf="ben!=null">
                         <i class="feather icon-arrow-up text-c-green f-30 m-r-10"></i>$ {{ ben.benefice }}
                     </h3>
                 </div>
@@ -45,7 +45,7 @@
                     <h6 class="mb-4">Chiffre d'affaire</h6>
                 </div>
                 <div class="col-8">
-                    <h3 class="f-w-300 d-flex align-items-center m-b-0">
+                    <h3 class="f-w-300 d-flex align-items-center m-b-0" *ngIf="chiffre!=null">
                         <i class="feather icon-arrow-up text-c-green f-30 m-r-10"></i>$ {{ chiffre.entree }}
                     </h3>
                     </div>
@@ -66,7 +66,7 @@
                   <h6 class="mb-4">Temps moyenne de reparation d'une voiture</h6>
               </div>
               <div class="col-8">
-                  <h3 class="f-w-300 d-flex align-items-center m-b-0">
+                  <h3 class="f-w-300 d-flex align-items-center m-b-0" *ngIf="moyenne!=null" >
                       <i class="feather icon-arrow-up text-c-green f-30 m-r-10"></i> {{ moyenne.reparationmoyenne }}
                   </h3>
                   </div>
