@@ -26,6 +26,20 @@
                     <th>Etat</th>
                 </tr>
               </thead>
+              <div class="row" *ngIf="reparations.length == 0 ">
+                <div class="col-sm-12">
+                  <div class="card">
+                    <div class="card-block">
+                      <div class="row justify-content-center">
+                        <div class="col-sm-12">
+                            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                              Chargement en cours des Historique de reparation...
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
               <tbody>
                 <tr *ngFor="let rep of reparations | paginate: { itemsPerPage: 5, currentPage: p }" >
                     <td (click)="openDetails(rep._id)">{{ rep.designation }}</td>
