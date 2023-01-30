@@ -21,7 +21,7 @@
                 </div>
                 <div class="col-6">
                     <h3 class="f-w-300 d-flex align-items-center m-b-0" *ngIf="ben!=null">
-                        <i class="feather icon-arrow-up text-c-green f-30 m-r-10"></i>$ {{ ben.benefice }}
+                        <i class="feather icon-arrow-up text-c-green f-30 m-r-10"></i>$ {{ this.transform(ben.benefice) }}
                     </h3>
                     <h3 class="f-w-300 d-flex align-items-center m-b-0" *ngIf="ben==null">
                       <i class="feather icon-arrow-up text-c-green f-30 m-r-10"></i>$ 0 
@@ -55,7 +55,7 @@
                 </div>
                 <div class="col-8">
                     <h3 class="f-w-300 d-flex align-items-center m-b-0" *ngIf="chiffre!=null">
-                        <i class="feather icon-arrow-up text-c-green f-30 m-r-10"></i>$ {{ chiffre.entree }}
+                        <i class="feather icon-arrow-up text-c-green f-30 m-r-10"></i>$ {{ this.transform(chiffre.entree)}}
                     </h3>
                     <h3 class="f-w-300 d-flex align-items-center m-b-0" *ngIf="chiffre==null">
                       <i class="feather icon-arrow-up text-c-green f-30 m-r-10"></i>$ 0

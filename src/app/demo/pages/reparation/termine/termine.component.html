@@ -34,7 +34,7 @@
                         <td>{{ rep.datedebutreparation }}</td>
                         <td>{{ rep.dateterminaison }}</td>
                         <td>{{ rep.etat }}</td>
-                        <td>{{ rep.total }}</td>
+                        <td>{{ this.Transformer(rep.total) }}</td>
                         <td *ngIf="estFinancier" >
                             <button *ngIf="isLoading" class="btn btn-primary" type="button" disabled>
                               <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>

@@ -31,4 +31,16 @@ export class DataService {
         console.log(error);
       });
   }
+
+  
+
+  transform(value) {
+    if (typeof value === 'string') {
+      value = parseFloat(value);
+    }
+    if(value){
+        return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+    }
+    
+  }
 }

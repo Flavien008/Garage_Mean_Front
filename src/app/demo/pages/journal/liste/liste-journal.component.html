@@ -28,8 +28,8 @@
                 <tr *ngFor="let rep of journal | paginate: { itemsPerPage: 5, currentPage: p }" >
                     <td>{{ rep.designation }}</td>
                     <td>{{ rep.date | date:'dd-MM-YYYY' }}</td>
-                    <td>{{ rep.entree }}</td>
-                    <td>{{ rep.sortie }}</td>
+                    <td>{{ this.Transformer(rep.entree) }}</td>
+                    <td>{{ this.Transformer(rep.sortie) }}</td>
                 </tr>
               </tbody>
               <pagination-controls (pageChange)="p = $event"></pagination-controls>

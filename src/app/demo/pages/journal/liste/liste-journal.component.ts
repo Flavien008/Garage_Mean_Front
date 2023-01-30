@@ -65,4 +65,7 @@ export default class SaisieJournalCompoment implements OnInit{
             );
         }
       }
+      Transformer(value){
+        return this.dataService.transform(value);
+      }
 }

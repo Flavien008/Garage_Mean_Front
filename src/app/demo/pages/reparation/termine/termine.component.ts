@@ -7,6 +7,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TermineModalComponent } from './popup/FormPopupComponent';
 import { forkJoin } from 'rxjs';
+import { DataService } from 'src/app/_services/data.service';
 
 @Component({
   selector: 'app-basic-elements',
@@ -23,7 +24,7 @@ export default class TermineComponent implements OnInit{
     estFinancier : boolean = false;
     isLoading : boolean = false;
 
-    constructor(private http: HttpClient,private router: Router,private modalService: NgbModal) {}
+    constructor(private http: HttpClient,private router: Router,private modalService: NgbModal,private dataService : DataService) {}
 
     ngOnInit(): void {
         if(localStorage.getItem('user')!=null){
@@ -89,6 +90,9 @@ export default class TermineComponent implements OnInit{
     openModal(data:any) {
       const modalRef = this.modalService.open(TermineModalComponent);
       modalRef.componentInstance.id_reparation = data;
+  }
+  Transformer(value){
+    return this.dataService.transform(value)
   }
 }
     

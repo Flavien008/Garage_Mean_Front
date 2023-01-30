@@ -63,5 +63,8 @@ export default class FicheFactureCompoment implements OnInit{
         const detailRef = this.modalService.open(DetailsModalCompoment);
         detailRef.componentInstance.id_reparation = data;
       }
+    Transformer(value){
+        return this.dataService.transform(value)
+    }
 
 }

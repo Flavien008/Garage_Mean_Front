@@ -28,13 +28,13 @@
                 <div class="col-md-3"><p class="text-black">Date : </p></div> <div class="col-md-3"><p class="text-black"> {{ facture.dateFacture }}</p></div> 
             </div>
             <div class="box" [ngStyle]="{'display': 'flex'}">
-                <div class="col-md-3"><p class="text-black">Net à payer : </p></div> <div class="col-md-3"><p class="text-black"> {{ facture.montant }}</p></div> 
+                <div class="col-md-3"><p class="text-black">Net à payer : </p></div> <div class="col-md-3"><p class="text-black"> {{this.Transformer(facture.montant)}}</p></div> 
             </div>
             <div class="box" [ngStyle]="{'display': 'flex'}">
-                <div class="col-md-3"><p class="text-black">Montant payer : </p></div> <div class="col-md-3"><p class="text-black"> {{ facture.payer }}</p></div> 
+                <div class="col-md-3"><p class="text-black">Montant payer : </p></div> <div class="col-md-3"><p class="text-black"> {{ this.Transformer(facture.payer) }}</p></div> 
             </div>
             <div class="box" [ngStyle]="{'display': 'flex'}">
-                <div class="col-md-3"><p class="text-black">Reste à payer : </p></div> <div class="col-md-3"><p class="text-black"> {{ facture.reste }}</p></div> 
+                <div class="col-md-3"><p class="text-black">Reste à payer : </p></div> <div class="col-md-3"><p class="text-black"> {{ this.Transformer(facture.reste) }}</p></div> 
             </div>
         </div>
     </div>

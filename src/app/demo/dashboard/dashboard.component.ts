@@ -21,6 +21,7 @@ import { MorrisJsModule } from 'angular-morris-js';
 import { catchError, of, tap } from 'rxjs';
 
 
+
 @Component({
   selector: 'app-dashboard',
   standalone: true,
@@ -63,6 +64,7 @@ export default class DashboardComponent implements OnInit {
         });
         this.benefice(this.date, this.date).then(response => {
             this.chiffre = response[0];
+            console.log("Chifreeeee "+this.chiffre)
         });
 
         this.statistic(this.startDate, this.endDate).then(response => {
@@ -169,6 +171,17 @@ export default class DashboardComponent implements OnInit {
                 })
             ).toPromise();
     }
+
+    
+  transform(value) {
+    if (typeof value === 'string') {
+      value = parseFloat(value);
+    }
+    if(value){
+        return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+    }
+    
+  }
     
   
 }

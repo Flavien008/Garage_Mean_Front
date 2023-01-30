@@ -28,6 +28,8 @@ import { ListeComponent } from './pages/reparation/liste/liste.component';
 import { RecuModalComponent } from './demo/pages/reparation/recu/popup/FormPopupComponent';
 import { EncoursModalComponent } from './demo/pages/reparation/encours/popup/FormPopupComponent';
 import { TermineModalComponent } from './demo/pages/reparation/termine/popup/FormPopupComponent';
+import { DataService } from './_services/data.service';
+
 
 
 @NgModule({
@@ -50,7 +52,9 @@ import { TermineModalComponent } from './demo/pages/reparation/termine/popup/For
         ListeComponent,
         RecuModalComponent,
         EncoursModalComponent,
-        TermineModalComponent 
+        TermineModalComponent
+      
+
 
     ],
   imports: [
@@ -64,6 +68,8 @@ import { TermineModalComponent } from './demo/pages/reparation/termine/popup/For
     FormsModule, 
     NgxDropzoneModule,
     NgxPaginationModule,
+    
+ 
     ],
   providers: [NavigationItem],
   bootstrap: [AppComponent],
