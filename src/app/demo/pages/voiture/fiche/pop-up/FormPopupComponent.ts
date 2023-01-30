@@ -55,7 +55,7 @@ export class FormModalComponent implements OnInit {
                 "mailclient": JSON.parse(localStorage.getItem('user')).mail,
                 "nomclient": JSON.parse(localStorage.getItem('user')).nom,
                 "designation": designation,
-                "date_depot":  format(new Date(date), 'dd/MM/yyyy'),
+                "date_depot":  date,
                 "modele":this.voiture.modele,
                 "matriculation":this.voiture.matriculation,
                 "etat": "en attente"

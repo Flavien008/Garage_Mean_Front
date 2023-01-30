@@ -66,7 +66,7 @@ export default class DashboardComponent implements OnInit {
             this.lineSmoothMorrisData = response;
         });
 
-        this.fetchData();
+        this.fetchData(this.startDate, this.endDate);
 
         this.lineSmoothMorrisOption = {
             xkey: '_id',
@@ -91,6 +91,10 @@ export default class DashboardComponent implements OnInit {
             this.chiffre = response[0];
         });
         
+    }
+
+    reparationMoyenne(date:any,date2:any){
+        this.fetchData(date,date2);     
     }
 
     changeBen(d1:any,d2:any) {
@@ -119,11 +123,13 @@ export default class DashboardComponent implements OnInit {
             ).toPromise();
     }
 
-    async fetchData() {
+    async fetchData(d1: any, d2: any) {
+        const formdata = { startDate: d1, endDate: d2 };
+        console.log(formdata);
         const headers = new HttpHeaders({
             'Authorization': 'Bearer ' + this.token
         });
-        this.http.get(`${environment.baseUrl}/moyennevoiture`, {headers}).subscribe(data => {
+        this.http.post(`${environment.baseUrl}/moyennevoiture`,formdata, {headers}).subscribe(data => {
             this.moyenne = data;
             console.log(this.moyenne)
         });
