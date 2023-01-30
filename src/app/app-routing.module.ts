@@ -25,6 +25,7 @@ const routes: Routes = [
           import('./demo/pages/voiture/voiture.modules').then(
             (m) => m.VoitureModule
           ),
+          canActivate: [AuthGuard],
       },
       {
         path: 'reparation',
@@ -32,6 +33,7 @@ const routes: Routes = [
           import('./demo/pages/reparation/reparation.module').then(
             (m) => m.ReparationModule
           ),
+          canActivate: [AuthGuard],
       },
       {
         path: 'facture',
@@ -39,6 +41,7 @@ const routes: Routes = [
           import('./demo/pages/facture/facture.module').then(
             (m) => m.FactureModule
           ),
+          canActivate: [AuthGuard],
       },
       {
         path: 'journal',
@@ -46,6 +49,7 @@ const routes: Routes = [
           import('./demo/pages/journal/journal.modules').then(
             (m) => m.JournaModules
           ),
+          canActivate: [AuthGuard],
       },
       {
         path: 'charts',
@@ -53,12 +57,15 @@ const routes: Routes = [
           import('./demo/pages/core-chart/core-chart.module').then(
             (m) => m.CoreChartModule
           ),
+          canActivate: [AuthGuard],
       },
       {
         path: 'sample-page',
         loadComponent: () =>
           import('./demo/extra/sample-page/sample-page.component'),
+          canActivate: [AuthGuard],
       },
+      
     ],
   },
   {
