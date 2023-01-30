@@ -41,6 +41,10 @@ export default class DashboardComponent implements OnInit {
     chiffre : any = 0;
     moyenne : any;
     stat : any ;
+    benload : boolean = false;
+    caload : boolean = false;
+    repload : boolean = false;
+    statload : boolean = false;
 
   constructor(private http: HttpClient) {}
 
@@ -81,14 +85,18 @@ export default class DashboardComponent implements OnInit {
     }
 
     filtreStat(date:any,date2:any){
+        this.statload = true;
         this.statistic(date,date2).then(response => {
             this.lineSmoothMorrisData = response;
+            this.statload = false;
         });
     }
 
     chiffreAffaire(date:any,date2:any){
+        this.caload = true;
         this.benefice(date, date2).then(response => {
             this.chiffre = response[0];
+            this.caload = false;
         });
         
     }
@@ -98,8 +106,10 @@ export default class DashboardComponent implements OnInit {
     }
 
     changeBen(d1:any,d2:any) {
+        this.benload = true;
         this.benefice(d1, d2).then(response => {
             this.ben = response[0];
+            this.benload = false;
         });
     }
     
@@ -124,6 +134,7 @@ export default class DashboardComponent implements OnInit {
     }
 
     async fetchData(d1: any, d2: any) {
+        this.repload = true;
         const formdata = { startDate: d1, endDate: d2 };
         console.log(formdata);
         const headers = new HttpHeaders({
@@ -131,7 +142,12 @@ export default class DashboardComponent implements OnInit {
         });
         this.http.post(`${environment.baseUrl}/moyennevoiture`,formdata, {headers}).subscribe(data => {
             this.moyenne = data;
+            this.repload = false;
             console.log(this.moyenne)
+        },
+        error => {
+            this.repload = false;
+          console.log(error);
         });
         }
 

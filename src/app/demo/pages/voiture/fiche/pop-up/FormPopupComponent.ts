@@ -6,9 +6,12 @@ import { environment } from 'src/environments/environment';
 import { Router } from '@angular/router';
 import { DataService } from 'src/app/_services/data.service';
 import { format } from 'date-fns';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-form-modal',
+  standalone: true,
+  imports: [CommonModule],
   template: `
     <div class="modal-header">
       <h4 class="modal-title">Saisie nouvelle réparation</h4>
@@ -30,8 +33,16 @@ import { format } from 'date-fns';
             </div>
         </form>
     </div>
+    <div class="form-group text-start mb-4">
+        <div *ngIf="error" class="alert alert-danger alert-dismissible fade show" role="alert">
+            Veuillez completer tous les champs.
+    </div>
     <div class="modal-footer">
-      <button type="button" class="btn btn-outline-dark" (click)="submitForm(date.value,designation.value)">Valider</button>       
+      <button *ngIf="!loading" type="button" class="btn btn-outline-dark" (click)="submitForm(date.value,designation.value)">Valider</button>  
+      <button *ngIf="loading" class="btn btn-primary" type="button" disabled >
+        <span  class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+        Enregistrement...
+    </button>     
     </div>
   `
 })
@@ -48,6 +59,7 @@ export class FormModalComponent implements OnInit {
     }
 
     submitForm(date:string,designation:any) {
+      this.loading = true;
       if(localStorage.getItem('user')!=null){
             var data = {
                 "tablename":"reparation",
@@ -61,29 +73,27 @@ export class FormModalComponent implements OnInit {
                 "etat": "en attente"
             }
           }
-            console.log('tay'+data);
             var token : string;
             if(localStorage.getItem('user')!=null){
             token = JSON.parse(localStorage.getItem('user')).token;
-        console.log(data)
-        let headers = new HttpHeaders({
-            'Authorization': 'Bearer ' + token
-        });
-        
-     
+            console.log(data)
+            let headers = new HttpHeaders({
+                'Authorization': 'Bearer ' + token
+            });
     
-        if(data.designation!=''&&data.date_depot!=''){
-            this.error=false;
-            this.dataService.addData(`${environment.baseUrl}/object`,data, {headers: headers })
-            this.loading = false;
-            this.dataService.fetchData(`${environment.baseUrl}/reparation/${this.voiture._id}`,{headers})
-            }
-            else{
-                this.error=true;
+            if(data.designation!=''&&data.date_depot!=''){
+                this.error=false;
+                this.dataService.addData(`${environment.baseUrl}/object`,data, {headers: headers })
+                this.dataService.fetchData(`${environment.baseUrl}/reparation/${this.voiture._id}`,{headers})
+                setTimeout(() => {
+                    this.loading = false;
+                    this.activeModal.close();
+                }, 2000);
+            }else{
                 this.loading = false;
+                this.error=true;
             }
         }
-            this.activeModal.close();
         
     }
 }

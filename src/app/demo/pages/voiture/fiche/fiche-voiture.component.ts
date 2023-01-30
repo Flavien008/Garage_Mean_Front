@@ -27,6 +27,7 @@ export default class FicheVoitureCompoment implements OnInit{
     p : any ;
     token : string;
     currentDate = new Date();
+    loading : boolean = false;
 
     constructor (private route: ActivatedRoute,private modalService: NgbModal,private dataService: DataService){}
     ngOnInit(): void {
@@ -43,14 +44,16 @@ export default class FicheVoitureCompoment implements OnInit{
         this.dataService.data$.subscribe(data => {
             this.reparations = data;
           });
-    }
+        }
 
-    fetchData(idVoiture:string,token: string) {
-      const headers = new HttpHeaders({
-          'Authorization': 'Bearer ' + token
-    });
-    this.dataService.fetchData(`${environment.baseUrl}/reparation/${idVoiture}`,{headers});
-    }
+        fetchData(idVoiture:string,token: string) {
+        this.loading = true;
+        const headers = new HttpHeaders({
+            'Authorization': 'Bearer ' + token
+        });
+            this.dataService.fetchData(`${environment.baseUrl}/reparation/${idVoiture}`,{headers});
+            this.loading = false;
+        }
 
     openModal(data:any) {
         const modalRef = this.modalService.open(FormModalComponent);

@@ -9,7 +9,10 @@
                     <input type="date" class="form-control" [value]="date | date:'yyyy-MM-dd'" #bend2>
                 </div>
                 <div class="col-2 mb-4">
-                    <button class="btn btn-primary" (click)="changeBen(bend1.value,bend2.value)">voir</button>
+                  <button *ngIf="benload" class="btn btn-primary" type="button" disabled>
+                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                  </button>
+                    <button *ngIf="!benload" class="btn btn-primary" (click)="changeBen(bend1.value,bend2.value)">voir</button>
                 </div>
             </div>
             <div class="row d-flex align-items-center">
@@ -20,6 +23,9 @@
                     <h3 class="f-w-300 d-flex align-items-center m-b-0" *ngIf="ben!=null">
                         <i class="feather icon-arrow-up text-c-green f-30 m-r-10"></i>$ {{ ben.benefice }}
                     </h3>
+                    <h3 class="f-w-300 d-flex align-items-center m-b-0" *ngIf="ben==null">
+                      <i class="feather icon-arrow-up text-c-green f-30 m-r-10"></i>$ 0 
+                  </h3>
                 </div>
               
             </div>
@@ -35,7 +41,10 @@
                       <input type="date" class="form-control" [value]="date | date:'yyyy-MM-dd'" #aff2>
                   </div>
                   <div class="col-2 mb-4">
-                    <button class="btn btn-primary" (click)="chiffreAffaire(aff1.value,aff2.value)">voir</button>
+                    <button *ngIf="caload" class="btn btn-primary" type="button" disabled>
+                      <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                    </button>
+                    <button *ngIf="!caload" class="btn btn-primary" (click)="chiffreAffaire(aff1.value,aff2.value)">voir</button>
                 </div>
 
              </div>
@@ -48,6 +57,9 @@
                     <h3 class="f-w-300 d-flex align-items-center m-b-0" *ngIf="chiffre!=null">
                         <i class="feather icon-arrow-up text-c-green f-30 m-r-10"></i>$ {{ chiffre.entree }}
                     </h3>
+                    <h3 class="f-w-300 d-flex align-items-center m-b-0" *ngIf="chiffre==null">
+                      <i class="feather icon-arrow-up text-c-green f-30 m-r-10"></i>$ 0
+                  </h3>
                     </div>
             </div>
         
@@ -64,7 +76,10 @@
                 <input type="date" class="form-control" [value]="date | date:'yyyy-MM-dd'" #rep2>
             </div>
             <div class="col-2 mb-4">
-              <button class="btn btn-primary" (click)="reparationMoyenne(rep1.value,rep2.value)">voir</button> 
+              <button *ngIf="repload" class="btn btn-primary" type="button" disabled>
+                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+              </button>
+              <button *ngIf="!repload" class="btn btn-primary" (click)="reparationMoyenne(rep1.value,rep2.value)">voir</button>
           </div>
   
            </div>
@@ -77,6 +92,9 @@
                   <h3 class="f-w-300 d-flex align-items-center m-b-0" *ngIf="moyenne!=null" >
                       <i class="feather icon-arrow-up text-c-green f-30 m-r-10"></i> {{ moyenne.reparationmoyenne }}
                   </h3>
+                  <h3 class="f-w-300 d-flex align-items-center m-b-0" *ngIf="moyenne==null" >
+                    <i class="feather icon-arrow-up text-c-green f-30 m-r-10"></i> 0 h
+                </h3>
                   </div>
           </div>
       
@@ -95,7 +113,10 @@
                 <input type="date" class="form-control" #d2 [value]="endDate | date:'yyyy-MM-dd'">
             </div>
             <div class="col-2 mb-4">
-                <button class="btn btn-primary" (click)="filtreStat(d1.value,d2.value)">voir</button>
+              <button *ngIf="statload" class="btn btn-primary" type="button" disabled>
+                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+              </button>
+                <button *ngIf="!statload" class="btn btn-primary" (click)="filtreStat(d1.value,d2.value)">voir</button>
             </div>
         </div>
         <div
