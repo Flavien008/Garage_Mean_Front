@@ -45,7 +45,7 @@
             <div class="custom-dropzone" ngx-dropzone [accept]="'image/*'" (change)="onSelect($event)" (change)="onFileChange($event)">
               <ngx-dropzone-label>
                 <div>
-                  <h2>Drag or drop image de la voiture</h2>
+                  <h2>Drag and drop Image</h2>
                 </div>
               </ngx-dropzone-label>
               <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview" *ngFor="let f of files" [file]="f" [removable]="true" (removed)="onRemove(f)">
