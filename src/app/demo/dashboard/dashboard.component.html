@@ -58,13 +58,13 @@
       <app-card [hidHeader]="true">
            <div class="row d-flex align-items-center">
             <div class="col-5 mb-4">
-              <input type="date" class="form-control" [value]="date | date:'yyyy-MM-dd'" #aff1>
+              <input type="date" class="form-control" [value]="date | date:'yyyy-MM-dd'" #rep1>
           </div>
             <div class="col-5 text-end mb-4">
-                <input type="date" class="form-control" [value]="date | date:'yyyy-MM-dd'" #aff2>
+                <input type="date" class="form-control" [value]="date | date:'yyyy-MM-dd'" #rep2>
             </div>
             <div class="col-2 mb-4">
-              <button class="btn btn-primary" (click)="reparationMoyenne(aff1.value,aff2.value)">voir</button>
+              <button class="btn btn-primary" (click)="reparationMoyenne(rep1.value,rep2.value)">voir</button> 
           </div>
   
            </div>

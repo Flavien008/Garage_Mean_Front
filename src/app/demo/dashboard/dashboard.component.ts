@@ -66,7 +66,7 @@ export default class DashboardComponent implements OnInit {
             this.lineSmoothMorrisData = response;
         });
 
-        this.fetchData(this.startDate, this.endDate);
+        this.reparationMoyenne(this.startDate, this.endDate);
 
         this.lineSmoothMorrisOption = {
             xkey: '_id',
