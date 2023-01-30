@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { AuthGuard } from './auth.guard';
 import { AdminComponent } from './theme/layout/admin/admin.component';
 import { GuestComponent } from './theme/layout/guest/guest.component';
 
@@ -16,26 +17,34 @@ const routes: Routes = [
       {
         path: 'dashboard',
         loadComponent: () => import('./demo/dashboard/dashboard.component'),
+        canActivate: [AuthGuard],
       },
       {
-        path: 'basic',
+        path: 'voiture',
         loadChildren: () =>
-          import('./demo/ui-elements/ui-basic/ui-basic.module').then(
-            (m) => m.UiBasicModule
+          import('./demo/pages/voiture/voiture.modules').then(
+            (m) => m.VoitureModule
           ),
       },
       {
-        path: 'forms',
+        path: 'reparation',
         loadChildren: () =>
-          import('./demo/pages/form-elements/form-elements.module').then(
-            (m) => m.FormElementsModule
+          import('./demo/pages/reparation/reparation.module').then(
+            (m) => m.ReparationModule
           ),
       },
       {
-        path: 'tables',
+        path: 'facture',
         loadChildren: () =>
-          import('./demo/pages/tables/tables.module').then(
-            (m) => m.TablesModule
+          import('./demo/pages/facture/facture.module').then(
+            (m) => m.FactureModule
+          ),
+      },
+      {
+        path: 'journal',
+        loadChildren: () =>
+          import('./demo/pages/journal/journal.modules').then(
+            (m) => m.JournaModules
           ),
       },
       {

@@ -13,365 +13,175 @@ import '../../../assets/charts/amchart/ammap.min.js';
 import '../../../assets/charts/amchart/usaLow.js';
 import '../../../assets/charts/amchart/radar.js';
 import '../../../assets/charts/amchart/worldLow.js';
+import '../../../../node_modules/morris.js/morris.js';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 
-import dataJson from 'src/fake-data/map_data'
-import mapColor from 'src/fake-data/map-color-data.json'
+import { MorrisJsModule } from 'angular-morris-js';
+import { catchError, of, tap } from 'rxjs';
+
+
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule, SharedModule],
+  imports: [CommonModule, SharedModule,MorrisJsModule],
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.scss'],
+  styleUrls: ['./dashboard.component.scss', './crt-morris.component.scss',
+  '../../../../node_modules/morris.js/morris.css'],
 })
 export default class DashboardComponent implements OnInit {
-  ngOnInit() {
-    setTimeout(() => {
-      const latlong = dataJson;  
+    lineSmoothMorrisOption: any;
+    lineSmoothMorrisData: any;
+    date = new Date();
+    currentMonth: string;
+    startDate: Date;
+    endDate: Date;
+    token : string ;
+    ben : any = 0;
+    chiffre : any = 0;
+    moyenne : any;
+    stat : any ;
+    benload : boolean = false;
+    caload : boolean = false;
+    repload : boolean = false;
+    statload : boolean = false;
 
-      const mapData = mapColor
+  constructor(private http: HttpClient) {}
 
-      const minBulletSize = 3;
-      const maxBulletSize = 70;
-      let min = Infinity;
-      let max = -Infinity;
-      let i;
-      let value;
-      for (i = 0; i < mapData.length; i++) {
-        value = mapData[i].value;
-        if (value < min) {
-          min = value;
-        }
-        if (value > max) {
-          max = value;
-        }
-      }
 
-      const maxSquare = maxBulletSize * maxBulletSize * 2 * Math.PI;
-      const minSquare = minBulletSize * minBulletSize * 2 * Math.PI;
 
-      const images = [];
-      for (i = 0; i < mapData.length; i++) {
-        const dataItem = mapData[i];
-        value = dataItem.value;
-
-        let square =
-          ((value - min) / (max - min)) * (maxSquare - minSquare) + minSquare;
-        if (square < minSquare) {
-          square = minSquare;
-        }
-        const size = Math.sqrt(square / (Math.PI * 8));
-        const id = dataItem.code;
-
-        images.push({
-          type: 'circle',
-          theme: 'light',
-          width: size,
-          height: size,
-          color: dataItem.color,
-          longitude: latlong[id].longitude,
-          latitude: latlong[id].latitude,
-          title: dataItem.name + '</br> [ ' + value + ' ]',
-          value: value,
+  async ngOnInit() {
+        const year = this.date.getFullYear();
+        const mm = this.date.getMonth();
+        const month = ('0' + (this.date.getMonth() + 1)).slice(-2);
+        this.currentMonth = `${year}-${month}`;
+        this.startDate = new Date(year, mm, 1);
+        this.endDate = new Date(year, mm + 1, 0);
+        console.log(this.currentMonth);
+        this.benefice(this.date, this.date).then(response => {
+            this.ben = response[0];
         });
-      }
+        this.benefice(this.date, this.date).then(response => {
+            this.chiffre = response[0];
+            console.log("Chifreeeee "+this.chiffre)
+        });
 
-      // world-low chart
-        AmCharts.makeChart('world-low', {
-        type: 'map',
-        projection: 'eckert6',
+        this.statistic(this.startDate, this.endDate).then(response => {
+            console.log(response);
+            this.lineSmoothMorrisData = response;
+        });
 
-        dataProvider: {
-          map: 'worldLow',
-          images: images,
-        },
-        export: {
-          enabled: true,
-        },
-      });
+        this.reparationMoyenne(this.startDate, this.endDate);
 
-      const chartDatac = [
-        {
-          day: 'Mon',
-          value: 60,
-        },
-        {
-          day: 'Tue',
-          value: 45,
-        },
-        {
-          day: 'Wed',
-          value: 70,
-        },
-        {
-          day: 'Thu',
-          value: 55,
-        },
-        {
-          day: 'Fri',
-          value: 70,
-        },
-        {
-          day: 'Sat',
-          value: 55,
-        },
-        {
-          day: 'Sun',
-          value: 70,
-        },
-      ];
+        this.lineSmoothMorrisOption = {
+            xkey: '_id',
+            redraw: true,
+            resize: true,
+            ykeys: ['entree', 'sortie','benefice'],
+            hideHover: 'auto',
+            responsive: true,
+            labels: ['Entrer', 'Sortie','Benefice'],
+            lineColors: ['#1de9b6', '#A389D4','#2596be'],
+        };
+    }
 
-      // widget-line-chart
-      AmCharts.makeChart('widget-line-chart', {
-        type: 'serial',
-        addClassNames: true,
-        defs: {
-          filter: [
-            {
-              x: '-50%',
-              y: '-50%',
-              width: '200%',
-              height: '200%',
-              id: 'blur',
-              feGaussianBlur: {
-                in: 'SourceGraphic',
-                stdDeviation: '30',
-              },
-            },
-            {
-              id: 'shadow',
-              x: '-10%',
-              y: '-10%',
-              width: '120%',
-              height: '120%',
-              feOffset: {
-                result: 'offOut',
-                in: 'SourceAlpha',
-                dx: '0',
-                dy: '20',
-              },
-              feGaussianBlur: {
-                result: 'blurOut',
-                in: 'offOut',
-                stdDeviation: '10',
-              },
-              feColorMatrix: {
-                result: 'blurOut',
-                type: 'matrix',
-                values: '0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .2 0',
-              },
-              feBlend: {
-                in: 'SourceGraphic',
-                in2: 'blurOut',
-                mode: 'normal',
-              },
-            },
-          ],
+    filtreStat(date:any,date2:any){
+        this.statload = true;
+        this.statistic(date,date2).then(response => {
+            this.lineSmoothMorrisData = response;
+            this.statload = false;
+        });
+    }
+
+    chiffreAffaire(date:any,date2:any){
+        this.caload = true;
+        this.benefice(date, date2).then(response => {
+            this.chiffre = response[0];
+            this.caload = false;
+        });
+        
+    }
+
+    reparationMoyenne(date:any,date2:any){
+        this.fetchData(date,date2);     
+    }
+
+    changeBen(d1:any,d2:any) {
+        this.benload = true;
+        this.benefice(d1, d2).then(response => {
+            this.ben = response[0];
+            this.benload = false;
+        });
+    }
+    
+     
+    async benefice(d1: any, d2: any) {
+        const data = { debut: d1, fin: d2 };
+        const httpOptions = {
+            headers: new HttpHeaders({
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + this.token
+            })
+        };
+    
+        return this.http.post(`${environment.baseUrl}/benefice`, data, httpOptions)
+            .pipe(
+                tap((response) => console.log(response)),
+                catchError((error) => {
+                    console.log(error);
+                    return of(error);
+                })
+            ).toPromise();
+    }
+
+    async fetchData(d1: any, d2: any) {
+        this.repload = true;
+        const formdata = { startDate: d1, endDate: d2 };
+        console.log(formdata);
+        const headers = new HttpHeaders({
+            'Authorization': 'Bearer ' + this.token
+        });
+        this.http.post(`${environment.baseUrl}/moyennevoiture`,formdata, {headers}).subscribe(data => {
+            this.moyenne = data;
+            this.repload = false;
+            console.log(this.moyenne)
         },
-        fontSize: 15,
-        dataProvider: chartDatac,
-        autoMarginOffset: 0,
-        marginRight: 0,
-        categoryField: 'day',
-        categoryAxis: {
-          color: '#fff',
-          gridAlpha: 0,
-          axisAlpha: 0,
-          lineAlpha: 0,
-          offset: -20,
-          inside: true,
-        },
-        valueAxes: [
-          {
-            fontSize: 0,
-            inside: true,
-            gridAlpha: 0,
-            axisAlpha: 0,
-            lineAlpha: 0,
-            minimum: 0,
-            maximum: 100,
-          },
-        ],
-        chartCursor: {
-          valueLineEnabled: false,
-          valueLineBalloonEnabled: false,
-          cursorAlpha: 0,
-          zoomable: false,
-          valueZoomable: false,
-          cursorColor: '#fff',
-          categoryBalloonColor: '#51b4e6',
-          valueLineAlpha: 0,
-        },
-        graphs: [
-          {
-            id: 'g1',
-            type: 'line',
-            valueField: 'value',
-            lineColor: '#ffffff',
-            lineAlpha: 1,
-            lineThickness: 3,
-            fillAlphas: 0,
-            showBalloon: true,
-            balloon: {
-              drop: true,
-              adjustBorderColor: false,
-              color: '#ffffff',
-              fillAlphas: 0.2,
-              bullet: 'round',
-              bulletBorderAlpha: 1,
-              bulletSize: 5,
-              hideBulletsCount: 50,
-              lineThickness: 2,
-              useLineColorForBulletBorder: true,
-              valueField: 'value',
-              balloonText: '<span style="font-size:18px;">[[value]]</span>',
-            },
-          },
-        ],
-      });
-    }, 500);
+        error => {
+            this.repload = false;
+          console.log(error);
+        });
+        }
+
+    async statistic(d1: any, d2: any) {
+        const data = { debut: d1, fin: d2 };
+        const httpOptions = {
+            headers: new HttpHeaders({
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + this.token
+            })
+        };
+    
+        return this.http.post(`${environment.baseUrl}/statistic`, data, httpOptions)
+            .pipe(
+                tap((response) => console.log(response)),
+                catchError((error) => {
+                    console.log(error);
+                    return of(error);
+                })
+            ).toPromise();
+    }
+
+    
+  transform(value) {
+    if (typeof value === 'string') {
+      value = parseFloat(value);
+    }
+    if(value){
+        return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+    }
+    
   }
-
-  sales = [
-    {
-      title: 'Daily Sales',
-      icon: 'icon-arrow-up text-c-green',
-      amount: '$249.95',
-      percentage: '67%',
-      progress: 50,
-      design: 'col-md-6',
-    },
-    {
-      title: 'Monthly Sales',
-      icon: 'icon-arrow-down text-c-red',
-      amount: '$2.942.32',
-      percentage: '36%',
-      progress: 35,
-      design: 'col-md-6',
-    },
-    {
-      title: 'Yearly Sales',
-      icon: 'icon-arrow-up text-c-green',
-      amount: '$8.638.32',
-      percentage: '80%',
-      progress: 70,
-      design: 'col-md-12',
-    },
-  ];
-
-  card = [
-    {
-      design: 'border-bottom',
-      number: '235',
-      text: 'TOTAL IDEAS',
-      icon: 'icon-zap text-c-green',
-    },
-    {
-      number: '26',
-      text: 'TOTAL LOCATIONS',
-      icon: 'icon-map-pin text-c-blue',
-    },
-  ];
-
-  social_card = [
-    {
-      design: 'col-md-12',
-      icon: 'fab fa-facebook-f text-primary',
-      amount: '12,281',
-      percentage: '+7.2%',
-      color: 'text-c-green',
-      target: '35,098',
-      progress: 60,
-      duration: '3,539',
-      progress2: 45,
-    },
-    {
-      design: 'col-md-6',
-      icon: 'fab fa-twitter text-c-blue',
-      amount: '11,200',
-      percentage: '+6.2%',
-      color: 'text-c-purple',
-      target: '34,185',
-      progress: 40,
-      duration: '4,567',
-      progress2: 70,
-    },
-    {
-      design: 'col-md-6',
-      icon: 'fab fa-google-plus-g text-c-red',
-      amount: '10,500',
-      percentage: '+5.9%',
-      color: 'text-c-blue',
-      target: '25,998',
-      progress: 80,
-      duration: '7,753',
-      progress2: 50,
-    },
-  ];
-
-  progressing = [
-    {
-      number: '5',
-      amount: '384',
-      progress: 70,
-    },
-    {
-      number: '4',
-      amount: '145',
-      progress: 35,
-    },
-    {
-      number: '3',
-      amount: '24',
-      progress: 25,
-    },
-    {
-      number: '2',
-      amount: '1',
-      progress: 10,
-    },
-    {
-      number: '1',
-      amount: '0',
-      progress: 0,
-    },
-  ];
-
-  tables = [
-    {
-      src: 'assets/images/user/avatar-1.jpg',
-      title: 'Isabella Christensen',
-      text: 'Lorem Ipsum is simply dummy',
-      time: '11 MAY 12:56',
-      color: 'text-c-green',
-    },
-    {
-      src: 'assets/images/user/avatar-2.jpg',
-      title: 'Ida Jorgensen',
-      text: 'Lorem Ipsum is simply',
-      time: '11 MAY 10:35',
-      color: 'text-c-red',
-    },
-    {
-      src: 'assets/images/user/avatar-3.jpg',
-      title: 'Mathilda Andersen',
-      text: 'Lorem Ipsum is simply dummy',
-      time: '9 MAY 17:38',
-      color: 'text-c-green',
-    },
-    {
-      src: 'assets/images/user/avatar-1.jpg',
-      title: 'Karla Soreness',
-      text: 'Lorem Ipsum is simply',
-      time: '19 MAY 12:56',
-      color: 'text-c-red',
-    },
-    {
-      src: 'assets/images/user/avatar-2.jpg',
-      title: 'Albert Andersen',
-      text: 'Lorem Ipsum is',
-      time: '21 July 12:56',
-      color: 'text-c-green',
-    },
-  ];
+    
+  
 }

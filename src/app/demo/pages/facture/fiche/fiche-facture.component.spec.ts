@@ -1,17 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import FicheFactureCompoment from './fiche-facture.component';
 
-import { BasicElementsComponent } from './basic-elements.component';
 
-describe('BasicElementsComponent', () => {
-  let component: BasicElementsComponent;
-  let fixture: ComponentFixture<BasicElementsComponent>;
+describe('TblBootstrapComponent', () => {
+  let component: FicheFactureCompoment;
+  let fixture: ComponentFixture<FicheFactureCompoment>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [BasicElementsComponent],
+      imports: [FicheFactureCompoment],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(BasicElementsComponent);
+    fixture = TestBed.createComponent(FicheFactureCompoment);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

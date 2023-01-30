@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NgxDropzoneModule } from 'ngx-dropzone';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -21,25 +22,41 @@ import { NavItemComponent } from './theme/layout/admin/navigation/nav-content/na
 import { NavSearchComponent } from './theme/layout/admin/nav-bar/nav-left/nav-search/nav-search.component';
 import { NavigationItem } from './theme/layout/admin/navigation/navigation';
 import { ToggleFullScreenDirective } from './theme/shared/components/full-screen/toggle-full-screen';
+import { HttpClientModule } from '@angular/common/http';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { ListeComponent } from './pages/reparation/liste/liste.component';
+import { RecuModalComponent } from './demo/pages/reparation/recu/popup/FormPopupComponent';
+import { EncoursModalComponent } from './demo/pages/reparation/encours/popup/FormPopupComponent';
+import { TermineModalComponent } from './demo/pages/reparation/termine/popup/FormPopupComponent';
+import { DataService } from './_services/data.service';
+
+
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    GuestComponent,
-    AdminComponent,
-    ConfigurationComponent,
-    NavBarComponent,
-    NavigationComponent,
-    NavLeftComponent,
-    NavRightComponent,
-    NavContentComponent,
-    NavLogoComponent,
-    NavCollapseComponent,
-    NavGroupComponent,
-    NavItemComponent,
-    NavSearchComponent,
-    ToggleFullScreenDirective
-  ],
+    declarations: [
+        AppComponent,
+        GuestComponent,
+        AdminComponent,
+        ConfigurationComponent,
+        NavBarComponent,
+        NavigationComponent,
+        NavLeftComponent,
+        NavRightComponent,
+        NavContentComponent,
+        NavLogoComponent,
+        NavCollapseComponent,
+        NavGroupComponent,
+        NavItemComponent,
+        NavSearchComponent,
+        ToggleFullScreenDirective,
+        ListeComponent,
+        RecuModalComponent,
+        EncoursModalComponent,
+        TermineModalComponent
+      
+
+
+    ],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -47,7 +64,13 @@ import { ToggleFullScreenDirective } from './theme/shared/components/full-screen
     ReactiveFormsModule,
     SharedModule,
     BrowserAnimationsModule,
-  ],
+    HttpClientModule,
+    FormsModule, 
+    NgxDropzoneModule,
+    NgxPaginationModule,
+    
+ 
+    ],
   providers: [NavigationItem],
   bootstrap: [AppComponent],
 })

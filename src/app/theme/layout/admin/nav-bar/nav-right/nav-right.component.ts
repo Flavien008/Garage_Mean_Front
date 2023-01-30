@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NgbDropdownConfig } from '@ng-bootstrap/ng-bootstrap';
 import { animate, style, transition, trigger } from '@angular/animations';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-nav-right',
@@ -28,16 +29,25 @@ import { animate, style, transition, trigger } from '@angular/animations';
     ]),
   ],
 })
-export class NavRightComponent {
+export class NavRightComponent implements OnInit {
   visibleUserList: boolean;
   chatMessage: boolean;
   friendId: boolean;
+  username : string;
 
-  constructor(config: NgbDropdownConfig) {
+  constructor(config: NgbDropdownConfig , private router: Router) {
     config.placement = 'bottom-right';
     this.visibleUserList = false;
     this.chatMessage = false;
   }
+    ngOnInit(): void {
+        this.username = JSON.parse(localStorage.getItem('user')).nom;  
+    }
+
+    logout() {
+        localStorage.removeItem('user');
+        this.router.navigate(['/auth/signin']);
+    }
 
   onChatToggle(friend_id) {
     this.friendId = friend_id;

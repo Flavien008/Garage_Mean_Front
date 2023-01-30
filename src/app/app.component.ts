@@ -1,3 +1,4 @@
+import { AuthGuard } from './auth.guard';
 import { Component, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 
@@ -7,9 +8,12 @@ import { NavigationEnd, Router } from '@angular/router';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
-  title = 'datta-able';
+  title = 'Garage_Mean';
+  isAuthenticated: boolean;
 
-  constructor(private router: Router) {}
+  constructor(private router: Router,private authGuard :AuthGuard) {
+      this.isAuthenticated = this.authGuard.canActivate();
+  }
 
   ngOnInit() {
     this.router.events.subscribe((evt) => {

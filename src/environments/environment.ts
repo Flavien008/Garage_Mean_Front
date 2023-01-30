@@ -5,8 +5,9 @@
 export const environment = {
   appVersion: require('../../package.json').version,
   production: false,
-  baseUrl:'localhost:3000/api/v1'
+  baseUrl : 'https://urgaragemeanapi.glitch.me/api/v1'
 };
+
 
 /*
  * For easier debugging in development mode, you can import the following file
