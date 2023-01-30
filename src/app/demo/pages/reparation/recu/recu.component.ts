@@ -6,6 +6,7 @@ import { Router, RouterModule } from '@angular/router';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { RecuModalComponent } from './popup/FormPopupComponent';
+import { DataService } from 'src/app/_services/data.service';
 
 @Component({
   selector: 'app-basic-elements',
@@ -21,7 +22,7 @@ export default class RecuComponent implements OnInit{
   form : any;
   token : string;
 
-  constructor(private http: HttpClient,private router: Router,private modalService: NgbModal) {}
+  constructor(private http: HttpClient,private router: Router,private modalService: NgbModal,private dataservice : DataService) {}
 
     ngOnInit(): void {
       if(localStorage.getItem('user')!=null){
@@ -55,6 +56,9 @@ export default class RecuComponent implements OnInit{
       const modalRef = this.modalService.open(RecuModalComponent);
       modalRef.componentInstance.id_reparation = data;
   }
+    Transformer(value){
+      return this.dataservice.transform(value);
+    }
 }
     
     

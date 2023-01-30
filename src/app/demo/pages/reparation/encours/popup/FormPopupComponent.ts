@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { DataService } from 'src/app/_services/data.service';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -27,7 +28,7 @@ import { environment } from 'src/environments/environment';
 <tbody>
     <tr *ngFor="let liste of listedetails">
         <td>{{ liste.designation }}</td>
-        <td>{{ liste.prix }}</td>
+        <td>{{ this.Transformer(liste.prix) }}</td>
         <td> <input
                 type="range"
                 class="form-control-range d-block"
@@ -41,7 +42,10 @@ import { environment } from 'src/environments/environment';
 </table>
 </div>
 <div class="modal-footer">
-  <button type="button" class="btn btn-outline-dark" (click)= "getValue()" >Valider</button>       
+<button *ngIf="loading" class="btn btn-primary" type="button" disabled>
+                      <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                    </button>
+  <button *ngIf="!loading"  type="button" class="btn btn-outline-dark" (click)= "getValue()" >Valider</button>       
 </div>
   `
 })
@@ -84,7 +88,7 @@ export class EncoursModalComponent implements OnInit {
     error = false;
 
 
-    constructor(public activeModal: NgbActiveModal,private http: HttpClient,private router: Router) { }
+    constructor(public activeModal: NgbActiveModal,private http: HttpClient,private router: Router,private dataservice : DataService) { }
 
 
 
@@ -139,7 +143,11 @@ export class EncoursModalComponent implements OnInit {
       console.log(response);
     });
   }
+  Transformer (value){
+    return this.dataservice.transform(value)
+  }
   affecter(id : string){
+    this.loading = true;
     console.log(id);
     var token : string;
     
@@ -154,6 +162,7 @@ export class EncoursModalComponent implements OnInit {
     console.log("atyyy ehh "+id)
     this.http.post(`${environment.baseUrl}/updateetat/${id}`,this.form,{ headers: headers })
     .subscribe(response => {
+      this.loading = false;
       console.log(response);
       this.router.navigate(['/reparation/termine']);
       this.activeModal.close();

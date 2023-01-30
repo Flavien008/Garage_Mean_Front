@@ -3,6 +3,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { forkJoin, mergeMap } from 'rxjs';
+import { DataService } from 'src/app/_services/data.service';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -44,13 +45,13 @@ import { environment } from 'src/environments/environment';
     <tbody>
         <tr *ngFor="let liste of listedetails">
             <td>{{ liste.designation }}</td>
-            <td>{{ liste.prix }}</td>
+            <td>{{ this.Transformer(liste.prix)}}</td>
             
         </tr>
         <br>
         <tr>
             <td> <b>Total</b> </td>
-            <td>{{total}}</td>
+            <td>{{this.Transformer(total)}}</td>
         </tr>
 
     </tbody>
@@ -78,8 +79,10 @@ export class RecuModalComponent implements OnInit {
     error = false;
 
 
-    constructor(public activeModal: NgbActiveModal,private http: HttpClient,private router: Router) { }
-
+    constructor(public activeModal: NgbActiveModal,private http: HttpClient,private router: Router,private dataservice : DataService) { }
+    Transformer (value){
+      return this.dataservice.transform(value)
+    }
     ngOnInit() {
       var token : string;
       console.log(this.id_reparation);
@@ -165,4 +168,5 @@ export class RecuModalComponent implements OnInit {
             }
         }
     }
+    
 }
